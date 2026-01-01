@@ -5,27 +5,29 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Cihangir Çay Ocağı | QR Menü</title>
   <meta name="description" content="Cihangir Çay Ocağı QR Menü" />
-  <meta name="theme-color" content="#fff7fb">
+  <meta name="theme-color" content="#0b1220">
   <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png">
 
   <style>
     :root{
-      --bg:#fff7fb;
-      --surface:rgba(255,255,255,.92);
-      --ink:#16202f;
-      --muted:#5c6b80;
-      --line:#ead6e5;
+      /* Koyu ama göz yormayan zemin */
+      --bg:#0b1220;        /* ana arka plan */
+      --bg2:#0f1b2f;       /* hafif ton */
+      --surface:#101c33;   /* kart */
+      --surface2:#0e1930;  /* ikinci kart */
+      --ink:#f1f5ff;       /* ana yazı */
+      --muted:#b7c2d6;     /* ikincil yazı */
+      --line:rgba(255,255,255,.10);
 
-      --pink:#ff4d8d;
-      --green:#22c55e;
-      --blue:#60a5fa;
+      /* Esnafa yakışan vurgu: kehribar + teal + zeytin */
+      --accent:#f5c451;    /* kehribar */
+      --accent2:#2dd4bf;   /* teal */
+      --good:#22c55e;
+      --danger:#f97316;
 
-      --chip:#fff1f6;
-      --chipLine:#ffd0e1;
-
-      --shadow: 0 14px 40px rgba(22,32,47,.10);
+      --shadow: 0 18px 50px rgba(0,0,0,.35);
       --r2:22px;
-      --tap: 48px;
+      --tap:52px; /* orta yaş: büyük dokunma alanı */
     }
 
     *{box-sizing:border-box}
@@ -35,25 +37,18 @@
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", sans-serif;
       color:var(--ink);
       background:
-        radial-gradient(1100px 520px at 12% -12%, rgba(255,77,141,.18), transparent 60%),
-        radial-gradient(980px 520px at 112% 10%, rgba(34,197,94,.14), transparent 58%),
-        radial-gradient(980px 520px at 22% 118%, rgba(96,165,250,.14), transparent 60%),
-        var(--bg);
+        radial-gradient(1200px 600px at 10% -10%, rgba(245,196,81,.10), transparent 60%),
+        radial-gradient(1100px 600px at 110% 10%, rgba(45,212,191,.10), transparent 60%),
+        radial-gradient(1100px 600px at 20% 120%, rgba(96,165,250,.08), transparent 60%),
+        linear-gradient(180deg, var(--bg), var(--bg2));
       min-height:100vh;
-    }
-
-    .flowers{
-      position:fixed; inset:0; pointer-events:none; opacity:.12;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240' viewBox='0 0 240 240'%3E%3Cg fill='none' stroke='%23ff4d8d' stroke-width='1.2' opacity='0.55'%3E%3Cpath d='M54 46c10 10 10 26 0 36-10-10-26-10-36 0 10-10 10-26 0-36 10 10 26 10 36 0Z'/%3E%3Cpath d='M184 78c10 10 10 26 0 36-10-10-26-10-36 0 10-10 10-26 0-36 10 10 26 10 36 0Z'/%3E%3Cpath d='M98 166c10 10 10 26 0 36-10-10-26-10-36 0 10-10 10-26 0-36 10 10 26 10 36 0Z'/%3E%3C/g%3E%3Cg fill='none' stroke='%2322c55e' stroke-width='1.2' opacity='0.45'%3E%3Cpath d='M148 132c-8 12-24 15-36 7 8-12 5-28-7-36 12 8 28 5 36-7-8 12-5 28 7 36Z'/%3E%3C/g%3E%3C/svg%3E");
-      background-size: 240px 240px;
-      mix-blend-mode:multiply;
     }
 
     .top{
       position:sticky; top:0; z-index:50;
-      background: rgba(255,247,251,.82);
+      background: rgba(11,18,32,.82);
       backdrop-filter: blur(10px);
-      border-bottom:1px solid rgba(234,214,229,.9);
+      border-bottom:1px solid var(--line);
     }
     header{
       max-width:980px;
@@ -67,13 +62,13 @@
 
     .brand{display:flex;align-items:center;gap:12px;min-width:0;}
     .logo{
-      width:44px;height:44px;border-radius:18px;
+      width:46px;height:46px;border-radius:18px;
       background:
-        radial-gradient(circle at 30% 30%, rgba(255,77,141,.88), rgba(255,77,141,.18) 60%, transparent 70%),
-        radial-gradient(circle at 70% 70%, rgba(34,197,94,.70), rgba(34,197,94,.12) 60%, transparent 70%),
-        #fff;
-      border:1px solid rgba(234,214,229,.95);
-      box-shadow: 0 10px 22px rgba(22,32,47,.08);
+        radial-gradient(circle at 30% 30%, rgba(245,196,81,.95), rgba(245,196,81,.15) 60%, transparent 70%),
+        radial-gradient(circle at 70% 70%, rgba(45,212,191,.85), rgba(45,212,191,.12) 60%, transparent 70%),
+        rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.12);
+      box-shadow: 0 14px 28px rgba(0,0,0,.35);
       flex:0 0 auto;
     }
     .title{min-width:0;line-height:1.2;}
@@ -96,49 +91,46 @@
 
     .actions{display:flex;gap:10px;flex:0 0 auto;}
     .btn{
-      height:38px;
+      height:40px;
       display:inline-flex;align-items:center;justify-content:center;gap:8px;
       padding:0 12px;
       border-radius:14px;
-      border:1px solid rgba(234,214,229,.95);
-      background:#fff;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
       color:var(--ink);
       text-decoration:none;
       font-weight:950;
       font-size:13px;
-      box-shadow: 0 10px 22px rgba(22,32,47,.08);
+      box-shadow: 0 10px 24px rgba(0,0,0,.30);
       user-select:none;
       transition: transform .08s ease;
     }
     .btn:active{transform:scale(.98)}
     .btn.primary{
-      border-color: rgba(255,77,141,.25);
-      background: linear-gradient(135deg, rgba(255,77,141,.16), rgba(96,165,250,.08));
+      border-color: rgba(245,196,81,.35);
+      background: linear-gradient(135deg, rgba(245,196,81,.20), rgba(45,212,191,.10));
     }
 
-    .wrap{max-width:980px;margin:0 auto;padding:16px 14px 96px;}
+    .wrap{max-width:980px;margin:0 auto;padding:16px 14px 98px;}
     .card{
-      background:var(--surface);
-      border:1px solid rgba(234,214,229,.95);
+      background: rgba(16,28,51,.78);
+      border:1px solid rgba(255,255,255,.10);
       border-radius: var(--r2);
       box-shadow: var(--shadow);
     }
 
+    /* Günlük köşe */
     .daily{padding:14px; display:grid; gap:12px;}
     .dailyHead{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      flex-wrap:wrap;
+      display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;
     }
     .badge{
       display:inline-flex;align-items:center;gap:8px;
-      padding:8px 10px;
+      padding:9px 12px;
       border-radius:999px;
-      background: var(--chip);
-      border:1px solid var(--chipLine);
-      color: rgba(22,32,47,.92);
+      background: rgba(245,196,81,.12);
+      border:1px solid rgba(245,196,81,.25);
+      color: rgba(255,255,255,.92);
       font-size:12px;
       font-weight:950;
       white-space:nowrap;
@@ -150,50 +142,44 @@
 
     .ayatBox{
       border-radius:18px;
-      border:1px solid rgba(234,214,229,.95);
-      background: linear-gradient(135deg, rgba(255,77,141,.08), rgba(34,197,94,.07), rgba(96,165,250,.10));
+      border:1px solid rgba(255,255,255,.10);
+      background:
+        linear-gradient(135deg, rgba(245,196,81,.10), rgba(45,212,191,.08)),
+        rgba(255,255,255,.03);
       padding:12px;
     }
     .ayatTop{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;flex-wrap:wrap;}
     .ayatRef{font-size:12px;color:var(--muted);font-weight:900;}
     .ayatText{
       margin-top:8px;
-      font-size:14px;
-      line-height:1.35;
+      font-size:15px;         /* orta yaş: bir tık büyük */
+      line-height:1.45;
       font-weight:950;
-      color: rgba(22,32,47,.92);
+      color: rgba(255,255,255,.92);
     }
     .ayatNote{
       margin-top:8px;
       font-size:12px;
       color: var(--muted);
-      line-height:1.35;
+      line-height:1.4;
     }
 
     .prayerBox{
       border-radius:18px;
-      border:1px solid rgba(234,214,229,.95);
-      background:#fff;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
       padding:12px;
     }
     .prayerTop{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;flex-wrap:wrap;}
-    .prayerTitle{
-      margin:0;
-      font-size:13px;
-      letter-spacing:.2px;
-      color: rgba(22,32,47,.92);
-      font-weight:950;
-    }
+    .prayerTitle{margin:0;font-size:13px;letter-spacing:.2px;font-weight:950;}
     .loc{font-size:12px;color:var(--muted);font-weight:850;}
     .status{
       display:inline-flex;align-items:center;gap:8px;
-      padding:7px 10px;
-      border-radius:999px;
-      border:1px solid rgba(234,214,229,.95);
-      background: rgba(34,197,94,.08);
-      color: rgba(22,32,47,.88);
-      font-size:12px;
-      font-weight:950;
+      padding:7px 10px;border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(45,212,191,.10);
+      color: rgba(255,255,255,.90);
+      font-size:12px;font-weight:950;
       white-space:nowrap;
     }
 
@@ -204,64 +190,23 @@
       gap:8px;
     }
     .timePill{
-      padding:10px 10px;
+      padding:12px 12px;
       border-radius:16px;
-      border:1px solid rgba(234,214,229,.95);
-      background: rgba(96,165,250,.06);
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
       display:flex;align-items:center;justify-content:space-between;gap:10px;
     }
-    .timePill b{font-size:12px;color: rgba(22,32,47,.86);}
-    .timePill span{font-weight:1000;color: rgba(22,32,47,.96);}
-    .timePill.green{ background: rgba(34,197,94,.07); }
-    .timePill.pink{ background: rgba(255,77,141,.07); }
+    .timePill b{font-size:12px;color: rgba(255,255,255,.80);}
+    .timePill span{font-weight:1000;color: rgba(255,255,255,.95);}
+    .timePill.green{ background: rgba(34,197,94,.12); border-color: rgba(34,197,94,.22); }
+    .timePill.orange{ background: rgba(249,115,22,.10); border-color: rgba(249,115,22,.20); }
 
-    .prayerActions{
-      margin-top:10px;
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-    }
-    .input{
-      flex: 1 1 160px;
-      min-width: 160px;
-      height: var(--tap);
-      padding:0 12px;
-      border-radius:14px;
-      border:1px solid rgba(234,214,229,.95);
-      background:#fff;
-      outline:none;
-      font-size:13px;
-      box-shadow: 0 10px 22px rgba(22,32,47,.06);
-    }
-    .smallBtn{
-      height: var(--tap);
-      padding:0 12px;
-      border-radius:14px;
-      border:1px solid rgba(234,214,229,.95);
-      background:#fff;
-      font-weight:950;
-      font-size:13px;
-      cursor:pointer;
-      box-shadow: 0 10px 22px rgba(22,32,47,.06);
-      user-select:none;
-      white-space:nowrap;
-    }
-    .smallBtn.primary{
-      border-color: rgba(34,197,94,.28);
-      background: linear-gradient(135deg, rgba(34,197,94,.12), rgba(96,165,250,.08));
-    }
-    .hint{
-      margin-top:8px;
-      font-size:12px;
-      color: var(--muted);
-      line-height:1.35;
-    }
+    /* Sonraki vakit */
     #nextLine{
-      margin-top:8px;
-      font-weight:950;
-      border:1px solid rgba(234,214,229,.95);
-      background: rgba(255,77,141,.06);
-      padding:10px 12px;
+      margin-top:10px;
+      border:1px solid rgba(245,196,81,.20);
+      background: rgba(245,196,81,.08);
+      padding:12px 12px;
       border-radius:16px;
       display:flex;
       align-items:center;
@@ -269,67 +214,115 @@
       gap:10px;
       flex-wrap:wrap;
     }
-    #nextLine b{font-size:12px;color:rgba(22,32,47,.86)}
-    #nextLine span{font-size:12px;color:rgba(22,32,47,.92);font-weight:1000}
+    #nextLine b{font-size:12px;color:rgba(255,255,255,.80)}
+    #nextLine span{font-size:12px;color:rgba(255,255,255,.92);font-weight:1000}
 
+    .prayerActions{
+      margin-top:10px;
+      display:flex;gap:10px;flex-wrap:wrap;
+    }
+    .input{
+      flex: 1 1 160px;
+      min-width: 160px;
+      height: var(--tap);
+      padding:0 12px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      outline:none;
+      font-size:14px;
+      color: var(--ink);
+      box-shadow: 0 12px 26px rgba(0,0,0,.25);
+    }
+    .input::placeholder{color: rgba(183,194,214,.72)}
+    .smallBtn{
+      height: var(--tap);
+      padding:0 12px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      font-weight:950;
+      font-size:13px;
+      cursor:pointer;
+      color: var(--ink);
+      box-shadow: 0 12px 26px rgba(0,0,0,.25);
+      user-select:none;
+      white-space:nowrap;
+    }
+    .smallBtn.primary{
+      border-color: rgba(245,196,81,.35);
+      background: linear-gradient(135deg, rgba(245,196,81,.22), rgba(45,212,191,.10));
+    }
+    .hint{
+      margin-top:10px;
+      font-size:12px;
+      color: var(--muted);
+      line-height:1.45;
+    }
+
+    /* Menü başlığı */
     .menuHero{margin-top:14px;padding:14px;}
     .menuHero h2{margin:0;font-size:18px;font-weight:1000;}
-    .menuHero p{margin:8px 0 0;font-size:13px;color:var(--muted);line-height:1.35;}
+    .menuHero p{margin:8px 0 0;font-size:13px;color:var(--muted);line-height:1.45;}
 
+    /* arama + kategori */
     .toolbar{margin-top:14px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;}
     .search{
       flex:1 1 260px;min-width:220px;
       height: var(--tap);
       padding:0 12px;border-radius:16px;
-      border:1px solid rgba(234,214,229,.95);
-      background:#fff;color:var(--ink);
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      color:var(--ink);
       outline:none;font-size:14px;
-      box-shadow: 0 10px 22px rgba(22,32,47,.06);
+      box-shadow: 0 12px 26px rgba(0,0,0,.25);
     }
+    .search::placeholder{color: rgba(183,194,214,.72)}
     .tabs{display:flex;gap:8px;flex-wrap:wrap;}
     .tab{
-      height: 40px;
+      height: 42px;
       padding:0 12px;border-radius:999px;
-      border:1px solid rgba(234,214,229,.95);
-      background:#fff;
-      color:rgba(22,32,47,.86);
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      color:rgba(255,255,255,.92);
       font-weight:950;font-size:12px;
       cursor:pointer;user-select:none;
-      box-shadow: 0 10px 22px rgba(22,32,47,.06);
+      box-shadow: 0 12px 26px rgba(0,0,0,.22);
       transition: transform .08s ease;
       display:inline-flex;align-items:center;gap:8px;
     }
     .tab:active{transform:scale(.99)}
     .tab.active{
-      border-color: rgba(255,77,141,.32);
-      background: linear-gradient(135deg, rgba(255,77,141,.13), rgba(34,197,94,.08));
-      color: rgba(22,32,47,.95);
+      border-color: rgba(245,196,81,.40);
+      background: rgba(245,196,81,.16);
+      color: rgba(255,255,255,.95);
     }
 
+    /* Liste */
     .list{margin-top:14px;display:grid;gap:10px;}
     .sectionTitle{
       display:flex;align-items:center;justify-content:space-between;gap:10px;
       padding:12px;border-radius:18px;
-      border:1px solid rgba(234,214,229,.95);
-      background:#fff;
-      box-shadow: 0 10px 22px rgba(22,32,47,.06);
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      box-shadow: 0 12px 26px rgba(0,0,0,.22);
     }
     .sectionLeft{display:flex;align-items:center;gap:10px;min-width:0;}
     .sectionIcon{
-      width:40px;height:40px;border-radius:14px;
+      width:42px;height:42px;border-radius:16px;
       display:grid;place-items:center;
-      border:1px solid rgba(234,214,229,.95);
-      background: linear-gradient(135deg, rgba(255,77,141,.10), rgba(96,165,250,.08));
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(245,196,81,.12);
       flex:0 0 auto;
       font-size:18px;
     }
     .sectionText h3{margin:0;font-size:14px;font-weight:1000;}
     .sectionText p{margin:6px 0 0;font-size:12px;color:var(--muted);}
     .chip2{
-      font-size:11px;padding:6px 10px;border-radius:999px;
-      border:1px solid rgba(234,214,229,.95);
-      background: rgba(255,77,141,.06);
-      color: rgba(22,32,47,.82);
+      font-size:11px;padding:7px 10px;border-radius:999px;
+      border:1px solid rgba(45,212,191,.25);
+      background: rgba(45,212,191,.10);
+      color: rgba(255,255,255,.88);
       font-weight:950;
       white-space:nowrap;
     }
@@ -337,78 +330,84 @@
     .item{
       display:flex;gap:12px;align-items:center;
       padding:12px;border-radius:18px;
-      border:1px solid rgba(234,214,229,.95);
-      background:#fff;
-      box-shadow: 0 12px 26px rgba(22,32,47,.08);
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      box-shadow: 0 14px 30px rgba(0,0,0,.22);
     }
     .iIcon{
-      width:42px;height:42px;border-radius:16px;
+      width:44px;height:44px;border-radius:16px;
       display:grid;place-items:center;
-      border:1px solid rgba(234,214,229,.95);
-      background: rgba(255,77,141,.06);
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
       flex:0 0 auto;
       font-size:18px;
     }
     .meta{min-width:0;flex:1 1 auto;}
-    .meta .name{margin:0;font-weight:1000;font-size:14px;}
-    .meta .desc{margin:6px 0 0;font-size:12px;color:var(--muted);line-height:1.25;}
+    .meta .name{margin:0;font-weight:1000;font-size:15px;}
+    .meta .desc{margin:6px 0 0;font-size:12px;color:var(--muted);line-height:1.35;}
     .right{flex:0 0 auto;text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:6px;}
-    .price{font-weight:1100;font-size:16px;color:rgba(22,32,47,.95);}
+    .price{font-weight:1100;font-size:16px;color:rgba(255,255,255,.95);}
     .ask{
-      font-size:11px;padding:6px 10px;border-radius:999px;
-      border:1px dashed rgba(234,214,229,1);
-      background: rgba(92,107,128,.06);
-      color: rgba(22,32,47,.70);
+      font-size:11px;padding:7px 10px;border-radius:999px;
+      border:1px dashed rgba(255,255,255,.18);
+      background: rgba(183,194,214,.10);
+      color: rgba(255,255,255,.82);
       font-weight:950;
       white-space:nowrap;
     }
     .tag{
-      font-size:11px;padding:6px 10px;border-radius:999px;
-      border:1px solid rgba(234,214,229,.95);
-      background: rgba(34,197,94,.08);
-      color: rgba(22,32,47,.80);
+      font-size:11px;padding:7px 10px;border-radius:999px;
+      border:1px solid rgba(245,196,81,.25);
+      background: rgba(245,196,81,.10);
+      color: rgba(255,255,255,.88);
       font-weight:950;
       white-space:nowrap;
     }
 
     .infoGrid{margin-top:14px;display:grid;gap:10px;grid-template-columns:1fr;}
     @media(min-width:860px){.infoGrid{grid-template-columns:1fr 1fr;}}
-    .info{padding:12px;border-radius:18px;border:1px solid rgba(234,214,229,.95);background:#fff;box-shadow:0 10px 22px rgba(22,32,47,.06);}
-    .info h4{margin:0;font-size:13px;color: var(--blue);display:flex;gap:8px;align-items:center;font-weight:1000;}
-    .info p{margin:8px 0 0;color:var(--muted);font-size:13px;line-height:1.35;}
+    .info{
+      padding:12px;border-radius:18px;border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      box-shadow: 0 12px 26px rgba(0,0,0,.22);
+    }
+    .info h4{
+      margin:0;font-size:13px;
+      color: rgba(245,196,81,.95);
+      display:flex;gap:8px;align-items:center;font-weight:1000;
+    }
+    .info p{margin:8px 0 0;color:var(--muted);font-size:13px;line-height:1.45;}
 
-    .footer{margin-top:14px;text-align:center;color:rgba(92,107,128,.92);font-size:12px;line-height:1.6;}
+    .footer{margin-top:14px;text-align:center;color:rgba(183,194,214,.92);font-size:12px;line-height:1.6;}
 
     .bottomBar{
       position:fixed;left:0;right:0;bottom:0;z-index:60;
       padding:10px 12px;
-      background: rgba(255,247,251,.90);
-      border-top:1px solid rgba(234,214,229,.9);
+      background: rgba(11,18,32,.88);
+      border-top:1px solid var(--line);
       backdrop-filter: blur(10px);
     }
     .barInner{max-width:980px;margin:0 auto;display:flex;gap:10px;}
     .barBtn{
       flex:1 1 0;
-      height:54px;
+      height:58px;
       display:inline-flex;align-items:center;justify-content:center;gap:10px;
       padding:0 12px;border-radius:16px;
-      border:1px solid rgba(234,214,229,.95);
-      background:#fff;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
       color:var(--ink);text-decoration:none;font-weight:1000;
-      box-shadow: 0 12px 26px rgba(22,32,47,.08);
+      box-shadow: 0 14px 30px rgba(0,0,0,.30);
     }
     .barBtn.primary{
-      background: linear-gradient(135deg, rgba(255,77,141,.16), rgba(96,165,250,.08));
-      border-color: rgba(255,77,141,.25);
+      background: linear-gradient(135deg, rgba(245,196,81,.22), rgba(45,212,191,.10));
+      border-color: rgba(245,196,81,.32);
     }
-    .barText{display:flex;flex-direction:column;align-items:flex-start;line-height:1.1;}
-    .barBtn small{display:block;font-weight:900;font-size:11px;color:rgba(92,107,128,.90);margin-top:2px;}
+    .barText{display:flex;flex-direction:column;align-items:flex-start;line-height:1.12;}
+    .barBtn small{display:block;font-weight:900;font-size:11px;color:rgba(183,194,214,.92);margin-top:2px;}
   </style>
 </head>
 
 <body>
-  <div class="flowers" aria-hidden="true"></div>
-
   <div class="top">
     <header>
       <div class="brand">
@@ -428,7 +427,7 @@
   <div class="wrap">
     <section class="card daily">
       <div class="dailyHead">
-        <span class="badge">🌸 Günlük Köşe</span>
+        <span class="badge">📌 Günlük Bilgi</span>
         <span class="today" id="todayLine"></span>
       </div>
 
@@ -453,7 +452,6 @@
 
           <div class="times" id="prayerGrid"></div>
 
-          <!-- ✅ Sonraki vakit + kalan süre -->
           <div id="nextLine">
             <b>⏱️ Sonraki vakit</b>
             <span><span id="nextPrayerName">—</span> • <span id="nextPrayerCountdown">--:--:--</span></span>
@@ -525,36 +523,37 @@
     // =========================
     const CONFIG = {
       shopName: "Cihangir Çay Ocağı",
-      shopSub: "Ferah, temiz, sıcak bir mola ☕🌸",
+      shopSub: "Sıcak çay, temiz hizmet ☕",
       phoneLocal: "0507 319 02 78",
       phoneE164: "+905073190278",
       whatsappNumber: "905073190278",
-      hours: "Her gün 07:00 – 23:00",
-      address: "Adres: (buraya yazabilirsin)",
-      heroTitle: "Hoş geldiniz ☕",
-      heroText: "Menümüz günceldir. Aramak veya WhatsApp’tan yazmak için alttaki butonları kullanabilirsiniz."
+      hours: "Her gün 09:00 – 22:00",
+      address: "Yeni Mah. Fatih Cad.",
+      heroTitle: "QR Menü",
+      heroText: "Fiyatlar günceldir. Aramak veya WhatsApp’tan yazmak için alttaki butonları kullanabilirsiniz."
     };
 
     // price:0 => “Fiyat Sor”
     const MENU = [
-      { category: "İçecekler", name: "Çay", price: 15, icon: "🍵", desc: "Demli, sıcak", tag: "Sıcak" },
-      { category: "İçecekler", name: "Türk Kahvesi", price: 85, icon: "☕", desc: "Köz tadında", tag: "Kahve" },
-      { category: "İçecekler", name: "Nescafe", price: 40, icon: "🥤", desc: "3'ü 1 arada / seçenekli", tag: "Kahve" },
-      { category: "İçecekler", name: "Oralet (Çeşitleri)", price: 15, icon: "🍊", desc: "Portakal / elma vb.", tag: "Sıcak" },
+      { category: "İÇEÇEKLER", name: "Çay", price: 15, icon: "🍵", desc: "Demli, sıcak"},
+      { category: "İÇEÇEKLER", name: "Türk Kahvesi", price: 85, icon: "☕", desc: "Köz tadında"  },
+      { category: "İÇEÇEKLER", name: "Nescafe", price: 40, icon: "🥤", desc: "3'ü 1 arada / seçenekli"},
+      { category: "İÇEÇEKLER", name: "Oralet (Çeşitleri)", price: 15, icon: "🍊", desc: "Portakal / elma vb." },
 
-      { category: "Tostlar", name: "Sadece Kaşarlı Tost", price: 0, icon: "🥪", desc: "Bol kaşarlı", tag: "Tost" },
-      { category: "Tostlar", name: "Sadece Sucuklu Tost", price: 0, icon: "🥪", desc: "Bol sucuklu", tag: "Tost" },
-      { category: "Tostlar", name: "Kaşarlı + Sucuklu (Karışık)", price: 0, icon: "🥪", desc: "Karışık", tag: "Tost" },
-      { category: "Tostlar", name: "Kavurmalı Tost", price: 0, icon: "🥪", desc: "Kavurmalı", tag: "Tost" },
-      { category: "Tostlar", name: "Kavurmalı + Kaşarlı", price: 0, icon: "🥪", desc: "Kavurma + kaşar", tag: "Tost" },
-      { category: "Tostlar", name: "Kavurmalı + Sucuklu", price: 0, icon: "🥪", desc: "Kavurma + sucuk", tag: "Tost" },
+      { category: "TOST ÇEŞİTLERİ", name: "Kaşarlı Tost", price: 0, icon: "🥪", desc: "Bol kaşarlı" },
+      { category: "TOST ÇEŞİTLERİ", name: "Sucuklu Tost", price: 0, icon: "🥪", desc: "Bol sucuklu"},
+      { category: "TOST ÇEŞİTLERİ", name: "Kaşarlı + Sucuklu (Karışık)", price: 0, icon: "🥪", desc: "Karışık"" },
+      { category: "TOST ÇEŞİTLERİ", name: "Kavurmalı Tost(Çok yakında)", price: 0, icon: "🥪", desc: "Kavurmalı" },
+      { category: "TOST ÇEŞİTLERİ", name: "Kavurmalı + Kaşarlı(Çok Yakında)", price: 0, icon: "🥪", desc: "Kavurma + kaşar"},
+      { category: "TOST ÇEŞİTLERİ", name: "Kavurmalı + Sucuklu(Çok yakında)", price: 0, icon: "🥪", desc: "Kavurma + sucuk"},
 
-      { category: "Kahvaltılık", name: "Haşlanmış Yumurta", price: 0, icon: "🥚", desc: "Sıcacık", tag: "Yiyecek" },
-      { category: "Kahvaltılık", name: "Tavada Yumurta", price: 0, icon: "🍳", desc: "İstersen tereyağlı", tag: "Yiyecek" }
+      { category: "KAHVALTILIK", name: "Haşlanmış Yumurta", price: 0, icon: "🥚", desc: "Sıcacık" },
+      { category: "KAHVALTILIK", name: "Tavada Yumurta", price: 0, icon: "🍳", desc: "İstersen tereyağlı" }
+      { category: "KAHVALTILIK", name: "MENEMEN", price: 0, icon: "🍳", desc: "İstersen kaşarlı" }
     ];
 
     // =========================
-    // Günün Ayeti (güne göre otomatik)
+    // Günün Ayeti (güne göre otomatik, kısa)
     // =========================
     const AYAT_LIST = [
       { ref:"Ra’d 13:28",  text:"Kalpler Allah’ı anmakla huzur bulur.", note:"Bugün: Huzur ve şükür." },
@@ -631,7 +630,7 @@
       if (cat === "İçecekler") return "☕";
       if (cat === "Tostlar") return "🥪";
       if (cat === "Kahvaltılık") return "🍳";
-      if (cat === "Hepsi") return "🌸";
+      if (cat === "Hepsi") return "📌";
       return "📌";
     }
 
@@ -744,7 +743,7 @@
         { key:"Sunrise", label:"Güneş",  cls:"" },
         { key:"Dhuhr",   label:"Öğle",   cls:"" },
         { key:"Asr",     label:"İkindi", cls:"" },
-        { key:"Maghrib", label:"Akşam",  cls:"pink" },
+        { key:"Maghrib", label:"Akşam",  cls:"orange" },
         { key:"Isha",    label:"Yatsı",  cls:"" }
       ];
 
@@ -858,7 +857,6 @@
         return;
       }
 
-      // gün bitti → yarın imsak
       try{
         if (lastQuery?.type === "coords"){
           const tmr = await fetchTomorrowByCoords(lastQuery.lat, lastQuery.lon);
@@ -880,9 +878,7 @@
           setNextPrayerUI("Yarın İmsak", target);
           return;
         }
-      }catch(e){
-        // fallback
-      }
+      }catch(e){}
 
       $("nextPrayerName").textContent = "Yarın İmsak";
       $("nextPrayerCountdown").textContent = "--:--:--";
@@ -983,7 +979,7 @@
     applyConfig();
     renderAyet();
     renderMenu();
-    loadFromGeolocation(); // otomatik dene
+    loadFromGeolocation();
   </script>
 </body>
 </html>
