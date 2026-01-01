@@ -389,7 +389,7 @@
       phoneE164: "+905073190278",
       whatsappNumber: "905073190278",
       hours: "Her gün 09:00 – 22:00",
-      address: "Kocaeli / Çayırova (adres detayını buraya yaz)",
+      address: "Kocaeli / Çayırova ",
       heroTitle: "Menü",
       heroText: "Arama kutusundan hızlıca ürün bulabilir, alttan arayabilir veya WhatsApp’tan yazabilirsiniz."
     };
@@ -400,6 +400,8 @@
       { category: "İÇECEKLER", name: "Türk Kahvesi", price: 90, icon: "☕", desc: "Köz tadında", tag: "Kahve" },
       { category: "İÇECEKLER", name: "Nescafe", price: 45, icon: "🥤", desc: "3'ü 1 arada / seçenekli", tag: "Kahve" },
       { category: "İÇECEKLER", name: "Oralet (Çeşitleri)", price: 15, icon: "🍊", desc: "Portakal / elma vb.", tag: "Sıcak" },
+       { category: "İÇECEKLER", name: "SU", price: 10, icon: "🍊", desc: "Portakal / elma vb.", tag: "Soğuk-Sıcak" },
+       { category: "İÇECEKLER", name: "Soda çeşitleri", price: 30, icon: "🍊", desc: "karpuz / elma /sade vb.", tag: "Soğuk" },
 
       { category: "TOST ÇEŞİTLERİ", name: " Kaşarlı Tost", price: 100, icon: "🥪", desc: "Bol kaşarlı", tag: "Tost" },
       { category: "TOST ÇEŞİTLERİ", name: " Sucuklu Tost", price: 100, icon: "🥪", desc: "Bol sucuklu", tag: "Tost" },
@@ -408,8 +410,9 @@
      // { category: "TOST ÇEŞİTLERİ", name: "Kavurmalı + Kaşarlı", price: 0, icon: "🥪", desc: "Kavurma + kaşar", tag: "Tost" },
      // { category: "TOST ÇEŞİTLERİ", name: "Kavurmalı + Sucuklu", price: 0, icon: "🥪", desc: "Kavurma + sucuk", tag: "Tost" },
 
-      { category: "KAHVALTILIK", name: " 1 Haşlanmış Yumurta", price: 20, icon: "🥚", desc: "Sıcacık", tag: "Yiyecek" },
-      { category: "KAHVALTILIK", name: " 1 Tavada Yumurta", price:25 , icon: "🍳", desc: "İstersen tereyağlı", tag: "Yiyecek" }
+      { category: "KAHVALTILIK", name: "(1) Haşlanmış Yumurta", price: 20, icon: "🥚", desc: "Sıcacık", tag: "Yiyecek" },
+      { category: "KAHVALTILIK", name: "(1)Tavada Yumurta", price:25 , icon: "🍳", desc: "İstersen tereyağlı", tag: "Yiyecek" }
+       { category: "KAHVALTILIK", name: "(1) Tavada Sucuklu Yumurta", price:35 , icon: "🍳", desc: "İstersen tereyağlı", tag: "Yiyecek" }
     ];
 
     const $ = (id) => document.getElementById(id);
@@ -449,7 +452,7 @@
       if (cat === "İÇECEKLER") return "☕";
       if (cat === "TOST ÇEŞİTLERİ") return "🥪";
       if (cat === "KAHVALTILIK") return "🍳";
-      if (cat === "Hepsi") return "📌";
+      if (cat === "Tüm Menü") return "📌";
       return "📌";
     }
 
@@ -559,3 +562,4 @@
   </script>
 </body>
 </html>
+
