@@ -384,6 +384,20 @@
     }
     .barText{display:flex;flex-direction:column;align-items:flex-start;line-height:1.1;}
     .barBtn small{display:block;font-weight:800;font-size:11px;color: rgba(234,240,255,.72);margin-top:2px;}
+
+    /* tiny build badge (debug) */
+    .buildBadge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      margin-top:10px;
+      font-size:11px;
+      color: rgba(234,240,255,.72);
+    }
+    .dot{
+      width:8px;height:8px;border-radius:999px;background: var(--good);
+      box-shadow: 0 0 0 3px rgba(124,255,178,.12);
+    }
   </style>
 </head>
 
@@ -423,6 +437,10 @@
             <b>Uygulama gibi kullanmak için:</b><br/>
             Android: Menü (⋮) → “Ana ekrana ekle”<br/>
             iPhone: Paylaş (⬆️) → “Ana Ekrana Ekle”
+            <div class="buildBadge" title="Güncelleme kontrol etiketi">
+              <span class="dot"></span>
+              <span id="buildText"></span>
+            </div>
           </div>
         </div>
 
@@ -489,6 +507,11 @@
     // =========================
     // ✅ SADECE BURAYI DÜZENLE
     // =========================
+
+    // ✅ Build etiketi: Güncelleme zorlamak için bunu artır (01 -> 02 gibi)
+    // Commit atınca PWA da güncellemeyi yakalasın diye sw.js'yi bu değerle cache-bypass ediyoruz.
+    const BUILD = "2026-01-01-02";
+
     const CONFIG = {
       shopName: "Cihangir Çay Ocağı",
       shopSub: "Sıcak çay • Taze tost • Hızlı servis",
@@ -553,6 +576,8 @@
       $("featuredText").textContent = (CONFIG.featured || []).join(" • ");
 
       $("phoneLabel").textContent = CONFIG.phoneLocal;
+
+      $("buildText").textContent = `Güncelleme etiketi: ${BUILD}`;
 
       const msg = encodeURIComponent("Merhaba, menüden sipariş vermek istiyorum.");
       const wa = `https://wa.me/${CONFIG.whatsappNumber}?text=${msg}`;
@@ -676,45 +701,36 @@
     applyConfig();
     render();
 
-// ✅ PWA: güncelleme gelince bekletme, anında aktive et ve tek sefer yenile
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", async () => {
-    try {
-      const reg = await navigator.serviceWorker.register("./sw.js");
+    // ✅ PWA: Güncelleme yakalama (sert)
+    // - sw.js'yi ?build ile cache bypass
+    // - updateViaCache:'none' ile kontrolü güçlendir
+    // - görünür olunca update dene
+    // - controllerchange olunca 1 kez reload
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", async () => {
+        try {
+          const reg = await navigator.serviceWorker.register(`./sw.js?build=${BUILD}`, { updateViaCache: "none" });
 
-      // Eğer yeni SW waiting'e düşerse, ona mesaj atıp skipWaiting yaptır
-      if (reg.waiting) {
-        reg.waiting.postMessage({ type: "SKIP_WAITING" });
-      }
+          // Açılışta update kontrolü
+          reg.update().catch(()=>{});
 
-      reg.addEventListener("updatefound", () => {
-        const newWorker = reg.installing;
-        if (!newWorker) return;
+          let refreshing = false;
+          navigator.serviceWorker.addEventListener("controllerchange", () => {
+            if (refreshing) return;
+            refreshing = true;
+            window.location.reload();
+          });
 
-        newWorker.addEventListener("statechange", () => {
-          // new worker kurulduysa, aktif etmek için mesaj gönder
-          if (newWorker.state === "installed") {
-            if (reg.waiting) {
-              reg.waiting.postMessage({ type: "SKIP_WAITING" });
+          document.addEventListener("visibilitychange", () => {
+            if (document.visibilityState === "visible") {
+              reg.update().catch(()=>{});
             }
-          }
-        });
+          });
+        } catch (e) {
+          // sessiz
+        }
       });
-
-      // Controller değişince (yeni SW aktif olunca) sayfayı yenile
-      let refreshing = false;
-      navigator.serviceWorker.addEventListener("controllerchange", () => {
-        if (refreshing) return;
-        refreshing = true;
-        window.location.reload();
-      });
-    } catch (e) {
-      // sessiz
     }
-  });
-}
-
   </script>
 </body>
 </html>
-
