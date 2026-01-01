@@ -5,403 +5,329 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Cihangir Çay Ocağı | QR Menü</title>
   <meta name="description" content="Cihangir Çay Ocağı QR Menü" />
-
-  <!-- PWA -->
-  <link rel="manifest" href="./manifest.webmanifest">
-  <meta name="theme-color" content="#0b1220">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#ffffff">
   <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png">
 
   <style>
     :root{
-      --bg1:#070b14;
-      --bg2:#0b1220;
+      --bg:#fff9fb;
+      --surface:#ffffff;
+      --ink:#1f2a37;
+      --muted:#55657a;
+      --line:#ead7e5;
 
-      --text:#eaf0ff;
-      --muted:rgba(234,240,255,.76);
+      --pink:#ff4d8d;
+      --green:#22c55e;
+      --blue:#60a5fa;
 
-      --card:rgba(255,255,255,.07);
-      --card2:rgba(255,255,255,.05);
-      --line:rgba(255,255,255,.12);
+      --chip:#fff1f6;
+      --chipLine:#ffd0e1;
 
-      --accent:#ffd66b;   /* sıcak sarı */
-      --accent2:#7ee7ff;  /* ferah mavi */
-      --good:#7CFFB2;
-
-      --shadow:0 18px 55px rgba(0,0,0,.36);
-      --radius:18px;
-      --radius2:22px;
+      --shadow: 0 16px 44px rgba(31,42,55,.10);
+      --r1:16px;
+      --r2:22px;
     }
 
     *{box-sizing:border-box}
-    html,body{height:100%}
     body{
       margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", sans-serif;
-      color:var(--text);
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", sans-serif;
+      color:var(--ink);
       background:
-        radial-gradient(1200px 600px at 15% -10%, rgba(255,214,107,.24), transparent 60%),
-        radial-gradient(900px 520px at 110% 8%, rgba(126,231,255,.20), transparent 58%),
-        radial-gradient(900px 520px at 15% 110%, rgba(124,255,178,.10), transparent 60%),
-        linear-gradient(180deg, var(--bg1), var(--bg2) 60%, var(--bg1));
+        radial-gradient(1200px 520px at 12% -10%, rgba(255,77,141,.18), transparent 60%),
+        radial-gradient(980px 520px at 110% 10%, rgba(34,197,94,.14), transparent 58%),
+        radial-gradient(980px 520px at 18% 115%, rgba(96,165,250,.16), transparent 60%),
+        var(--bg);
       min-height:100vh;
     }
 
-    .wrap{
-      max-width: 980px;
-      margin: 0 auto;
-      padding: 18px 14px 96px; /* bottom bar boşluğu */
+    /* abartısız çiçek deseni */
+    .flowers{
+      position:fixed; inset:0; pointer-events:none; opacity:.14;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240' viewBox='0 0 240 240'%3E%3Cg fill='none' stroke='%23ff4d8d' stroke-width='1.2' opacity='0.55'%3E%3Cpath d='M54 46c10 10 10 26 0 36-10-10-26-10-36 0 10-10 10-26 0-36 10 10 26 10 36 0Z'/%3E%3Cpath d='M184 78c10 10 10 26 0 36-10-10-26-10-36 0 10-10 10-26 0-36 10 10 26 10 36 0Z'/%3E%3Cpath d='M98 166c10 10 10 26 0 36-10-10-26-10-36 0 10-10 10-26 0-36 10 10 26 10 36 0Z'/%3E%3C/g%3E%3Cg fill='none' stroke='%2322c55e' stroke-width='1.2' opacity='0.45'%3E%3Cpath d='M148 132c-8 12-24 15-36 7 8-12 5-28-7-36 12 8 28 5 36-7-8 12-5 28 7 36Z'/%3E%3C/g%3E%3C/svg%3E");
+      background-size: 240px 240px;
+      mix-blend-mode:multiply;
     }
 
-    /* TOP BAR */
     .top{
-      position: sticky;
-      top: 0;
-      z-index: 20;
+      position:sticky; top:0; z-index:50;
+      background: rgba(255,249,251,.78);
       backdrop-filter: blur(10px);
-      background: linear-gradient(180deg, rgba(7,11,20,.94), rgba(7,11,20,.70));
-      border-bottom: 1px solid rgba(255,255,255,.06);
+      border-bottom:1px solid rgba(234,215,229,.9);
     }
-
     header{
-      max-width: 980px;
-      margin: 0 auto;
-      padding: 12px 14px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 12px;
+      max-width:980px;margin:0 auto;padding:12px 14px;
+      display:flex;align-items:center;justify-content:space-between;gap:12px;
     }
-
-    .brand{display:flex;gap:12px;align-items:center;min-width:0;}
+    .brand{display:flex;align-items:center;gap:12px;min-width:0;}
     .logo{
-      width:46px;height:46px;border-radius:16px;
+      width:46px;height:46px;border-radius:18px;
       background:
-        radial-gradient(circle at 30% 30%, rgba(255,214,107,.95), rgba(255,214,107,.2) 55%, transparent 70%),
-        radial-gradient(circle at 70% 70%, rgba(126,231,255,.85), rgba(126,231,255,.12) 55%, transparent 70%),
-        rgba(255,255,255,.09);
-      border:1px solid rgba(255,255,255,.14);
-      box-shadow: 0 10px 30px rgba(0,0,0,.25);
+        radial-gradient(circle at 30% 30%, rgba(255,77,141,.88), rgba(255,77,141,.18) 60%, transparent 70%),
+        radial-gradient(circle at 70% 70%, rgba(34,197,94,.70), rgba(34,197,94,.12) 60%, transparent 70%),
+        #fff;
+      border:1px solid rgba(234,215,229,.95);
+      box-shadow: 0 10px 22px rgba(31,42,55,.08);
       flex:0 0 auto;
     }
-
-    .title{min-width:0;line-height:1.15;}
+    .title{min-width:0;line-height:1.2;}
     .title h1{
-      margin:0;
-      font-size: 16px;
-      letter-spacing:.2px;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
+      margin:0;font-size:16px;letter-spacing:.2px;
+      white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
     }
     .title p{
-      margin:6px 0 0;
-      font-size: 12px;
-      color: var(--muted);
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
+      margin:6px 0 0;font-size:12px;color:var(--muted);
+      white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
     }
 
-    .miniActions{display:flex;align-items:center;gap:10px;flex:0 0 auto;}
-
+    .actions{display:flex;gap:10px;flex:0 0 auto;}
     .btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap: 8px;
-      padding: 10px 12px;
-      border-radius: 14px;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.07);
-      color: var(--text);
-      text-decoration:none;
-      font-weight: 950;
-      font-size: 13px;
-      box-shadow: 0 10px 25px rgba(0,0,0,.18);
-      cursor: pointer;
+      display:inline-flex;align-items:center;justify-content:center;gap:8px;
+      padding:10px 12px;border-radius:14px;
+      border:1px solid rgba(234,215,229,.95);
+      background:#fff;
+      color:var(--ink);text-decoration:none;font-weight:900;font-size:13px;
+      box-shadow: 0 10px 22px rgba(31,42,55,.08);
       user-select:none;
-      transition: transform .08s ease, background .2s ease, border-color .2s ease;
+      transition: transform .08s ease;
     }
-    .btn:active{ transform: scale(.98); }
+    .btn:active{transform:scale(.98)}
     .btn.primary{
-      background: linear-gradient(135deg, rgba(255,214,107,.30), rgba(126,231,255,.16));
-      border-color: rgba(255,214,107,.34);
+      border-color: rgba(255,77,141,.28);
+      background: linear-gradient(135deg, rgba(255,77,141,.18), rgba(96,165,250,.10));
     }
 
-    /* HERO */
-    .hero{
-      margin-top: 14px;
-      border-radius: var(--radius2);
-      border: 1px solid rgba(255,255,255,.12);
-      background: linear-gradient(135deg, rgba(255,255,255,.10), rgba(255,255,255,.05));
+    .wrap{max-width:980px;margin:0 auto;padding:18px 14px 94px;}
+    .card{
+      background:rgba(255,255,255,.92);
+      border:1px solid rgba(234,215,229,.95);
+      border-radius: var(--r2);
       box-shadow: var(--shadow);
-      overflow:hidden;
     }
 
-    .heroInner{padding: 16px;display:grid;gap: 12px;}
-
-    .heroText h2{margin: 0;font-size: 18px;letter-spacing:.2px;}
-    .heroText p{margin: 8px 0 0;color: var(--muted);font-size: 13px;line-height: 1.35;}
-
-    .badges{display:flex;gap: 8px;flex-wrap: wrap;margin-top: 12px;}
-    .pill{
+    /* Üst kutu: Ayet + Namaz vakitleri */
+    .dailyBox{padding:14px; display:grid; gap:12px;}
+    .dailyTop{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;}
+    .badge{
       display:inline-flex;align-items:center;gap:8px;
-      padding: 8px 10px;border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.06);
-      color: rgba(234,240,255,.82);
-      font-size: 12px;
-      white-space: nowrap;
+      padding:7px 10px;border-radius:999px;
+      background: var(--chip);
+      border:1px solid var(--chipLine);
+      color: rgba(31,42,55,.92);
+      font-size:12px;font-weight:900;
+      white-space:nowrap;
     }
+    .metaLine{font-size:12px;color:var(--muted);font-weight:800;}
 
-    .heroCards{display:grid;gap: 10px;grid-template-columns: 1fr;}
-    @media (min-width: 860px){ .heroCards{grid-template-columns: 1fr 1fr;} }
+    .dailyGrid{display:grid; gap:12px;}
+    @media(min-width:860px){ .dailyGrid{ grid-template-columns: 1.1fr .9fr; } }
 
-    .heroCard{
-      border-radius: 18px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.14);
-      padding: 12px;
+    .ayatBox{
+      border-radius:18px;
+      border:1px solid rgba(234,215,229,.95);
+      background: linear-gradient(135deg, rgba(255,77,141,.08), rgba(34,197,94,.08), rgba(96,165,250,.10));
+      padding:12px;
     }
-    .heroCard h3{
-      margin: 0;
-      font-size: 13px;
-      letter-spacing:.2px;
-      color: var(--accent);
-      display:flex;align-items:center;gap:8px;
-    }
-    .heroCard p{margin: 8px 0 0;font-size: 13px;line-height: 1.35;}
-    .heroCard small{display:block;margin-top: 10px;color: var(--muted);font-size: 12px;}
+    .ayatRef{font-size:12px;color:var(--muted);font-weight:900;margin-top:4px;}
+    .ayatText{margin-top:8px;font-size:14px;line-height:1.35;font-weight:900;color:rgba(31,42,55,.92);}
+    .ayatNote{margin-top:8px;font-size:12px;color:var(--muted);line-height:1.35;}
 
-    .installHint{
-      margin-top: 10px;
-      border-radius: 16px;
-      border: 1px dashed rgba(255,255,255,.18);
-      background: rgba(255,255,255,.04);
-      padding: 10px 12px;
-      color: rgba(234,240,255,.78);
-      font-size: 12px;
-      line-height: 1.35;
+    .prayerBox{
+      border-radius:18px;
+      border:1px solid rgba(234,215,229,.95);
+      background:#fff;
+      padding:12px;
     }
+    .prayerHead{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;flex-wrap:wrap;}
+    .prayerHead h3{margin:0;font-size:13px;letter-spacing:.2px;color: rgba(31,42,55,.92);}
+    .loc{font-size:12px;color:var(--muted);font-weight:800;}
 
-    /* TOOLBAR */
-    .toolbar{
-      margin-top: 14px;
+    .prayerGrid{
+      margin-top:10px;
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:8px;
+    }
+    .timePill{
+      padding:10px;
+      border-radius:16px;
+      border:1px solid rgba(234,215,229,.95);
+      background: rgba(96,165,250,.06);
+      display:flex;align-items:center;justify-content:space-between;gap:10px;
+    }
+    .timePill b{font-size:12px; color: rgba(31,42,55,.90);}
+    .timePill span{font-weight:1000; color: rgba(31,42,55,.95);}
+    .timePill.green{ background: rgba(34,197,94,.07); }
+    .timePill.pink{ background: rgba(255,77,141,.07); }
+
+    .prayerActions{
+      margin-top:10px;
       display:flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      align-items:center;
-      justify-content: space-between;
+      gap:10px;
+      flex-wrap:wrap;
     }
+    .input{
+      flex: 1 1 180px;
+      min-width: 180px;
+      padding:10px 12px;
+      border-radius:14px;
+      border:1px solid rgba(234,215,229,.95);
+      background:#fff;
+      outline:none;
+      font-size:13px;
+      box-shadow: 0 10px 22px rgba(31,42,55,.06);
+    }
+    .smallBtn{
+      padding:10px 12px;
+      border-radius:14px;
+      border:1px solid rgba(234,215,229,.95);
+      background: #fff;
+      font-weight:950;
+      font-size:13px;
+      cursor:pointer;
+      box-shadow: 0 10px 22px rgba(31,42,55,.06);
+      user-select:none;
+    }
+    .smallBtn.primary{
+      border-color: rgba(34,197,94,.30);
+      background: linear-gradient(135deg, rgba(34,197,94,.14), rgba(96,165,250,.08));
+    }
+    .hint{margin-top:8px;font-size:12px;color:var(--muted);line-height:1.35;}
 
+    /* Menü */
+    .hero{margin-top:14px;padding:14px;}
+    .hero h2{margin:0;font-size:18px;}
+    .hero p{margin:8px 0 0;font-size:13px;color:var(--muted);line-height:1.35;}
+
+    .toolbar{margin-top:14px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;}
     .search{
-      flex: 1 1 240px;
-      min-width: 220px;
-      padding: 12px 12px;
-      border-radius: 16px;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.18);
-      color: var(--text);
-      outline: none;
-      font-size: 14px;
+      flex:1 1 260px;min-width:220px;
+      padding:12px;border-radius:16px;
+      border:1px solid rgba(234,215,229,.95);
+      background:#fff;color:var(--ink);
+      outline:none;font-size:14px;
+      box-shadow: 0 10px 22px rgba(31,42,55,.06);
     }
-    .search::placeholder{color: rgba(234,240,255,.55);}
-
     .tabs{display:flex;gap:8px;flex-wrap:wrap;}
     .tab{
-      padding: 10px 12px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.06);
-      color: rgba(234,240,255,.86);
-      font-weight: 950;
-      font-size: 12px;
-      cursor:pointer;
-      user-select:none;
-      transition: transform .08s ease, background .2s ease, border-color .2s ease;
+      padding:10px 12px;border-radius:999px;
+      border:1px solid rgba(234,215,229,.95);
+      background:#fff;
+      color:rgba(31,42,55,.86);
+      font-weight:950;font-size:12px;
+      cursor:pointer;user-select:none;
+      box-shadow: 0 10px 22px rgba(31,42,55,.06);
+      transition: transform .08s ease;
     }
-    .tab:active{transform: scale(.99);}
+    .tab:active{transform:scale(.99)}
     .tab.active{
-      background: linear-gradient(135deg, rgba(255,214,107,.28), rgba(126,231,255,.14));
-      border-color: rgba(255,214,107,.28);
-      color: var(--text);
+      border-color: rgba(255,77,141,.35);
+      background: linear-gradient(135deg, rgba(255,77,141,.14), rgba(34,197,94,.08));
+      color: rgba(31,42,55,.95);
     }
 
-    /* LIST */
-    .list{margin-top: 14px;display:grid;gap: 10px;}
-
+    .list{margin-top:14px;display:grid;gap:10px;}
     .sectionTitle{
-      margin-top: 10px;
-      display:flex;
-      align-items:center;
-      justify-content: space-between;
-      gap: 10px;
-      padding: 12px 12px;
-      border-radius: 16px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.05);
+      display:flex;align-items:center;justify-content:space-between;gap:10px;
+      padding:12px;border-radius:18px;
+      border:1px solid rgba(234,215,229,.95);
+      background:#fff;
+      box-shadow: 0 10px 22px rgba(31,42,55,.06);
     }
-
-    .sectionTitle .left{
-      display:flex;align-items:center;gap:10px;min-width:0;
-    }
-    .sectionTitle .icon{
-      width: 40px;height: 40px;
-      border-radius: 14px;
+    .sectionLeft{display:flex;align-items:center;gap:10px;min-width:0;}
+    .sectionIcon{
+      width:40px;height:40px;border-radius:14px;
       display:grid;place-items:center;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.10);
+      border:1px solid rgba(234,215,229,.95);
+      background: linear-gradient(135deg, rgba(255,77,141,.10), rgba(96,165,250,.08));
       flex:0 0 auto;
-      font-size: 18px;
+      font-size:18px;
     }
-    .sectionTitle h3{margin:0;font-size:14px;letter-spacing:.2px;}
-    .sectionTitle p{margin:6px 0 0;font-size:12px;color:var(--muted);}
-    .chip{
-      font-size: 11px;
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.12);
-      color: rgba(234,240,255,.85);
-      white-space: nowrap;
+    .sectionText h3{margin:0;font-size:14px;}
+    .sectionText p{margin:6px 0 0;font-size:12px;color:var(--muted);}
+    .chip2{
+      font-size:11px;padding:6px 10px;border-radius:999px;
+      border:1px solid rgba(234,215,229,.95);
+      background: rgba(255,77,141,.06);
+      color: rgba(31,42,55,.82);
+      font-weight:900;
+      white-space:nowrap;
     }
 
     .item{
-      display:flex;
-      gap: 12px;
-      align-items: center;
-      padding: 12px;
-      border-radius: 18px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.05);
-      box-shadow: 0 10px 24px rgba(0,0,0,.18);
-      transition: transform .08s ease, border-color .2s ease, background .2s ease;
+      display:flex;gap:12px;align-items:center;
+      padding:12px;border-radius:18px;
+      border:1px solid rgba(234,215,229,.95);
+      background:#fff;
+      box-shadow: 0 12px 26px rgba(31,42,55,.08);
     }
-    .item:hover{border-color: rgba(255,214,107,.18); background: rgba(255,255,255,.06);}
-    .item:active{transform: scale(.995);}
-
     .iIcon{
-      width: 42px;height: 42px;
-      border-radius: 16px;
+      width:42px;height:42px;border-radius:16px;
       display:grid;place-items:center;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.10);
-      flex: 0 0 auto;
-      font-size: 18px;
-    }
-
-    .meta{min-width:0;flex: 1 1 auto;}
-    .meta .name{font-weight: 1000;font-size: 14px;margin:0;letter-spacing:.2px;}
-    .meta .desc{margin:6px 0 0;font-size: 12px;color: var(--muted);line-height:1.25;}
-
-    .right{
+      border:1px solid rgba(234,215,229,.95);
+      background: rgba(255,77,141,.06);
       flex:0 0 auto;
-      text-align:right;
-      display:flex;
-      flex-direction:column;
-      align-items:flex-end;
-      gap: 6px;
+      font-size:18px;
     }
-
-    .price{
-      font-weight: 1100;
-      font-size: 16px;
-      letter-spacing:.2px;
-      color: rgba(234,240,255,.95);
-    }
-
+    .meta{min-width:0;flex:1 1 auto;}
+    .meta .name{margin:0;font-weight:1000;font-size:14px;}
+    .meta .desc{margin:6px 0 0;font-size:12px;color:var(--muted);line-height:1.25;}
+    .right{flex:0 0 auto;text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:6px;}
+    .price{font-weight:1100;font-size:16px;color:rgba(31,42,55,.95);}
     .ask{
-      font-size: 11px;
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px dashed rgba(255,255,255,.18);
-      background: rgba(0,0,0,.12);
-      color: rgba(234,240,255,.78);
-      white-space: nowrap;
+      font-size:11px;padding:6px 10px;border-radius:999px;
+      border:1px dashed rgba(234,215,229,1);
+      background: rgba(83,97,115,.06);
+      color: rgba(31,42,55,.70);
+      font-weight:900;
+      white-space:nowrap;
     }
-
     .tag{
-      font-size: 11px;
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.12);
-      color: rgba(234,240,255,.85);
-      white-space: nowrap;
+      font-size:11px;padding:6px 10px;border-radius:999px;
+      border:1px solid rgba(234,215,229,.95);
+      background: rgba(34,197,94,.08);
+      color: rgba(31,42,55,.80);
+      font-weight:900;
+      white-space:nowrap;
     }
 
-    /* INFO GRID */
-    .infoGrid{margin-top: 14px;display:grid;gap:10px;grid-template-columns:1fr;}
-    @media (min-width: 860px){.infoGrid{grid-template-columns:1fr 1fr;}}
+    .infoGrid{margin-top:14px;display:grid;gap:10px;grid-template-columns:1fr;}
+    @media(min-width:860px){.infoGrid{grid-template-columns:1fr 1fr;}}
+    .info{padding:12px;border-radius:18px;border:1px solid rgba(234,215,229,.95);background:#fff;box-shadow:0 10px 22px rgba(31,42,55,.06);}
+    .info h4{margin:0;font-size:13px;color: var(--blue);display:flex;gap:8px;align-items:center;}
+    .info p{margin:8px 0 0;color:var(--muted);font-size:13px;line-height:1.35;}
 
-    .info{
-      border-radius: 18px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.06);
-      padding: 12px;
-    }
-    .info h4{margin:0;font-size:13px;color: var(--accent2);display:flex;gap:8px;align-items:center;}
-    .info p{margin:8px 0 0;color: var(--muted);font-size:13px;line-height: 1.35;}
+    .footer{margin-top:14px;text-align:center;color:rgba(83,97,115,.85);font-size:12px;line-height:1.6;}
 
-    .footer{margin-top: 14px;text-align:center;color: rgba(234,240,255,.65);font-size: 12px;line-height:1.6;}
-
-    /* BOTTOM BAR */
     .bottomBar{
-      position: fixed;
-      left:0;right:0;bottom:0;
-      z-index: 50;
-      padding: 10px 12px;
-      background: linear-gradient(180deg, rgba(7,11,20,.0), rgba(7,11,20,.92) 35%, rgba(7,11,20,.98));
-      border-top: 1px solid rgba(255,255,255,.06);
+      position:fixed;left:0;right:0;bottom:0;z-index:60;
+      padding:10px 12px;
+      background: rgba(255,249,251,.88);
+      border-top:1px solid rgba(234,215,229,.9);
       backdrop-filter: blur(10px);
     }
-    .barInner{
-      max-width: 980px;
-      margin: 0 auto;
-      display:flex;
-      gap: 10px;
-    }
+    .barInner{max-width:980px;margin:0 auto;display:flex;gap:10px;}
     .barBtn{
       flex:1 1 0;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap: 10px;
-      padding: 12px 12px;
-      border-radius: 16px;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.07);
-      color: var(--text);
-      text-decoration:none;
-      font-weight: 1000;
-      box-shadow: 0 10px 25px rgba(0,0,0,.22);
+      display:inline-flex;align-items:center;justify-content:center;gap:10px;
+      padding:12px;border-radius:16px;
+      border:1px solid rgba(234,215,229,.95);
+      background:#fff;
+      color:var(--ink);text-decoration:none;font-weight:1000;
+      box-shadow: 0 12px 26px rgba(31,42,55,.08);
     }
     .barBtn.primary{
-      background: linear-gradient(135deg, rgba(255,214,107,.32), rgba(126,231,255,.14));
-      border-color: rgba(255,214,107,.34);
+      background: linear-gradient(135deg, rgba(255,77,141,.16), rgba(96,165,250,.08));
+      border-color: rgba(255,77,141,.25);
     }
     .barText{display:flex;flex-direction:column;align-items:flex-start;line-height:1.1;}
-    .barBtn small{display:block;font-weight:800;font-size:11px;color: rgba(234,240,255,.72);margin-top:2px;}
-
-    /* tiny build badge (debug) */
-    .buildBadge{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      margin-top:10px;
-      font-size:11px;
-      color: rgba(234,240,255,.72);
-    }
-    .dot{
-      width:8px;height:8px;border-radius:999px;background: var(--good);
-      box-shadow: 0 0 0 3px rgba(124,255,178,.12);
-    }
+    .barBtn small{display:block;font-weight:850;font-size:11px;color:rgba(83,97,115,.85);margin-top:2px;}
   </style>
 </head>
 
 <body>
+  <div class="flowers" aria-hidden="true"></div>
+
   <div class="top">
     <header>
       <div class="brand">
@@ -411,8 +337,7 @@
           <p id="shopSub"></p>
         </div>
       </div>
-
-      <div class="miniActions">
+      <div class="actions">
         <a class="btn" id="miniWhats" href="#" aria-label="WhatsApp">💬</a>
         <a class="btn primary" id="miniCall" href="#" aria-label="Ara">📞</a>
       </div>
@@ -420,44 +345,53 @@
   </div>
 
   <div class="wrap">
-    <section class="hero">
-      <div class="heroInner">
-        <div class="heroText">
-          <h2 id="heroTitle"></h2>
-          <p id="heroText"></p>
+    <!-- ✅ Tek kutucuk: Ayet + Namaz Vakitleri -->
+    <section class="card dailyBox">
+      <div class="dailyTop">
+        <span class="badge">🌸 Günlük Köşe</span>
+        <span class="metaLine" id="todayLine"></span>
+      </div>
 
-          <div class="badges">
-            <span class="pill">✅ Temiz & Düzenli</span>
-            <span class="pill">⚡ Hızlı Servis</span>
-            <span class="pill">☕ Sıcak İçecek</span>
-            <span class="pill">🥪 Taze Tost</span>
+      <div class="dailyGrid">
+        <div class="ayatBox">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;">
+            <span class="badge">📖 Günün Ayeti</span>
+            <div class="ayatRef" id="ayatRef"></div>
           </div>
-
-          <div class="installHint">
-            <b>Uygulama gibi kullanmak için:</b><br/>
-            Android: Menü (⋮) → “Ana ekrana ekle”<br/>
-            iPhone: Paylaş (⬆️) → “Ana Ekrana Ekle”
-            <div class="buildBadge" title="Güncelleme kontrol etiketi">
-              <span class="dot"></span>
-              <span id="buildText"></span>
-            </div>
-          </div>
+          <div class="ayatText" id="ayatText"></div>
+          <div class="ayatNote" id="ayatNote"></div>
         </div>
 
-        <div class="heroCards">
-          <div class="heroCard">
-            <h3>📢 Kampanya / Duyuru</h3>
-            <p id="adText"></p>
-            <small id="adSub"></small>
+        <div class="prayerBox">
+          <div class="prayerHead">
+            <div>
+              <h3>🕌 Namaz Vakitleri</h3>
+              <div class="loc" id="locText">Konum bekleniyor…</div>
+            </div>
+            <span class="badge" id="calcBadge">⏳</span>
           </div>
 
-          <div class="heroCard">
-            <h3>⭐ Öne Çıkanlar</h3>
-            <p id="featuredText"></p>
-            <small>Arama kutusundan ürünleri hızlıca bulabilirsiniz.</small>
+          <div class="prayerGrid" id="prayerGrid" style="margin-top:10px;">
+            <!-- JS dolduracak -->
+          </div>
+
+          <div class="prayerActions">
+            <button class="smallBtn primary" id="btnLoc">📍 Konumdan Getir</button>
+            <input class="input" id="cityInput" placeholder="Şehir (örn: Yalova)" />
+            <button class="smallBtn" id="btnCity">🏙️ Şehirden Getir</button>
+          </div>
+
+          <div class="hint" id="hint">
+            Konum izni verirsen otomatik gelir. İzin yoksa şehir yazarak da alabilirsin.
           </div>
         </div>
       </div>
+    </section>
+
+    <!-- Menü -->
+    <section class="card hero" style="margin-top:14px;">
+      <h2 id="heroTitle"></h2>
+      <p id="heroText"></p>
     </section>
 
     <div class="toolbar">
@@ -479,8 +413,7 @@
     </div>
 
     <div class="footer">
-      © <span id="year"></span> <span id="footName"></span> • QR Menü<br/>
-      Fiyat değişirse sadece “price” değerini güncellemeniz yeterli.
+      © <span id="year"></span> <span id="footName"></span> • QR Menü
     </div>
   </div>
 
@@ -507,56 +440,84 @@
     // =========================
     // ✅ SADECE BURAYI DÜZENLE
     // =========================
-
-    // ✅ Build etiketi: Güncelleme zorlamak için bunu artır (01 -> 02 gibi)
-    // Commit atınca PWA da güncellemeyi yakalasın diye sw.js'yi bu değerle cache-bypass ediyoruz.
-    const BUILD = "2026-01-01-02";
-
     const CONFIG = {
       shopName: "Cihangir Çay Ocağı",
-      shopSub: "Sıcak çay • Taze tost • Hızlı servis",
+      shopSub: "Renkli, ferah, sıcak bir mola ☕🌸",
       phoneLocal: "0507 319 02 78",
       phoneE164: "+905073190278",
       whatsappNumber: "905073190278",
-      hours: "Her gün 09:00 – 22:00",
-      address: "Fatih Cad. CİHANGİR ÇAY OCAĞI",
+      hours: "Her gün 07:00 – 23:00",
+      address: "Adres: (buraya yazabilirsin)",
       heroTitle: "Hoş geldiniz ☕",
-      heroText: "Menümüz günceldir. Aramak veya WhatsApp’tan yazmak için alttaki butonları kullanabilirsiniz.",
-      adText: "Bugün: Tost + Çay 130₺",
-      adSub: "Afiyet olsun • Teşekkürler",
-      featured: ["Çay", "Türk Kahvesi", "Kaşarlı Tost", "Karışık Tost"]
+      heroText: "Menümüz günceldir. Aramak veya WhatsApp’tan yazmak için alttaki butonları kullanabilirsiniz."
     };
 
-    // ✅ MENU: price:0 => “Fiyat Sor”
+    // price:0 => “Fiyat Sor”
     const MENU = [
-      // İÇECEKLER
       { category: "İçecekler", name: "Çay", price: 15, icon: "🍵", desc: "Demli, sıcak", tag: "Sıcak" },
       { category: "İçecekler", name: "Türk Kahvesi", price: 85, icon: "☕", desc: "Köz tadında", tag: "Kahve" },
       { category: "İçecekler", name: "Nescafe", price: 40, icon: "🥤", desc: "3'ü 1 arada / seçenekli", tag: "Kahve" },
       { category: "İçecekler", name: "Oralet (Çeşitleri)", price: 15, icon: "🍊", desc: "Portakal / elma vb.", tag: "Sıcak" },
 
-      // TOST
-      { category: "TOST ÇEŞİTLERİ ", name: "Kaşarlı Tost", price: 0, icon: "🥪", desc: "Bol kaşarlı", tag: "Tost" },
-      { category: "TOST ÇEŞİTLERİ", name: " Sucuklu Tost", price: 0, icon: "🥪", desc: "Bol sucuklu", tag: "Tost" },
-      { category: "TOST ÇEŞİTLERİ", name: "Kaşarlı + Sucuklu (Karışık)", price: 0, icon: "🥪", desc: "Karışık", tag: "Tost" },
-      { category: "TOST ÇEŞİTLERİ", name: "Kavurmalı Tost", price: 0, icon: "🥪", desc: "Kavurmalı", tag: "Tost" },
-      { category: "TOST ÇEŞİTLERİ", name: "Kavurmalı + Kaşarlı", price: 0, icon: "🥪", desc: "Kavurma + kaşar", tag: "Tost" },
-      { category: "TOST ÇEŞİTLERİ", name: "Kavurmalı + Sucuklu", price: 0, icon: "🥪", desc: "Kavurma + sucuk", tag: "Tost" },
-      { category: "TOST ÇEŞİTLERİ", name: "Kavurmalı + Kaşarlı + Sucuklu (Özel)", price: 0, icon: "🥪", desc: "Özel karışık", tag: "Tost" },
+      { category: "Tostlar", name: "Sadece Kaşarlı Tost", price: 0, icon: "🥪", desc: "Bol kaşarlı", tag: "Tost" },
+      { category: "Tostlar", name: "Sadece Sucuklu Tost", price: 0, icon: "🥪", desc: "Bol sucuklu", tag: "Tost" },
+      { category: "Tostlar", name: "Kaşarlı + Sucuklu (Karışık)", price: 0, icon: "🥪", desc: "Karışık", tag: "Tost" },
+      { category: "Tostlar", name: "Kavurmalı Tost", price: 0, icon: "🥪", desc: "Kavurmalı", tag: "Tost" },
+      { category: "Tostlar", name: "Kavurmalı + Kaşarlı", price: 0, icon: "🥪", desc: "Kavurma + kaşar", tag: "Tost" },
+      { category: "Tostlar", name: "Kavurmalı + Sucuklu", price: 0, icon: "🥪", desc: "Kavurma + sucuk", tag: "Tost" },
 
-      // KAHVALTILIK
       { category: "Kahvaltılık", name: "Haşlanmış Yumurta", price: 0, icon: "🥚", desc: "Sıcacık", tag: "Yiyecek" },
-      { category: "Kahvaltılık", name: "Tavada Yumurta", price: 0, icon: "🍳", desc: "İstersen tereyağlı", tag: "Yiyecek" },
-      { category: "Kahvaltılık", name: "Sucuklu Yumurta (İstersen)", price: 0, icon: "🍳", desc: "Sucuklu", tag: "Yiyecek" },
-      { category: "Kahvaltılık", name: "Menemen (İstersen)", price: 0, icon: "🍳", desc: "Domates-biber", tag: "Yiyecek" }
+      { category: "Kahvaltılık", name: "Tavada Yumurta", price: 0, icon: "🍳", desc: "İstersen tereyağlı", tag: "Yiyecek" }
     ];
 
-    // ---- DOKUNMA: Render/Filter ----
+    // =========================
+    // Günün Ayeti (güne göre otomatik)
+    // (Kısa, anlaşılır mesajlar – telif riski yok)
+    // =========================
+    const AYAT_LIST = [
+      { ref:"Ra’d 13:28", text:"Kalpler Allah’ı anmakla huzur bulur.", note:"Bugün: Huzur ve şükür." },
+      { ref:"İnşirah 94:5", text:"Zorlukla beraber kolaylık vardır.", note:"Bugün: Sabır ve umut." },
+      { ref:"Bakara 2:286", text:"Kimseye gücünün yetmediği yük yüklenmez.", note:"Bugün: Güven ve dayanıklılık." },
+      { ref:"Zümer 39:53", text:"Ümitsizliğe düşmeyin; rahmet geniştir.", note:"Bugün: Umut ve bağışlanma." },
+      { ref:"Asr 103:1-3", text:"Zaman kıymetlidir: iman, iyi iş, hakkı ve sabrı tavsiye.", note:"Bugün: Zamanı bereketli kullan." },
+      { ref:"Hucurât 49:10", text:"Müminler kardeştir; arayı düzeltin.", note:"Bugün: Gönül alma ve barış." },
+      { ref:"Nahl 16:97", text:"İyi iş yapanlara güzel bir hayat vardır.", note:"Bugün: İyilik ve bereket." },
+      { ref:"Âl-i İmrân 3:159", text:"Kararlı ol ve Allah’a tevekkül et.", note:"Bugün: Nezaket ve güven." }
+    ];
+
+    // =========================
+    // Namaz vakitleri: AlAdhan API
+    // - Konumdan: timings?latitude=&longitude=
+    // - Şehirden: timingsByCity?city=&country=
+    // =========================
+    const ALADHAN_METHOD = 13; // Türkiye için yaygın (Diyanet/Umumî uyumlu)
+    const COUNTRY_DEFAULT = "Turkey";
+
+    // ---- yardımcılar ----
     const $ = (id) => document.getElementById(id);
 
-    function formatPrice(p){
-      if (!p || Number(p) === 0) return `<span class="ask">Fiyat Sor</span>`;
-      return `<span class="price">${Number(p).toFixed(0)} ₺</span>`;
+    function todayTR(){
+      const d = new Date();
+      return d.toLocaleDateString("tr-TR", { weekday:"long", year:"numeric", month:"long", day:"numeric" });
+    }
+
+    function hashIndex(key, mod){
+      let h = 0;
+      for (let i=0;i<key.length;i++) h = (h*31 + key.charCodeAt(i)) >>> 0;
+      return h % mod;
+    }
+
+    function ayetOfDay(){
+      const d = new Date();
+      const key = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
+      return AYAT_LIST[hashIndex(key, AYAT_LIST.length)];
+    }
+
+    function renderAyet(){
+      const a = ayetOfDay();
+      $("ayatRef").textContent = a.ref;
+      $("ayatText").textContent = a.text;
+      $("ayatNote").textContent = a.note;
     }
 
     function applyConfig(){
@@ -567,17 +528,10 @@
       $("heroTitle").textContent = CONFIG.heroTitle;
       $("heroText").textContent = CONFIG.heroText;
 
-      $("adText").textContent = CONFIG.adText;
-      $("adSub").textContent = CONFIG.adSub;
-
       $("hours").textContent = CONFIG.hours;
       $("address").textContent = CONFIG.address;
 
-      $("featuredText").textContent = (CONFIG.featured || []).join(" • ");
-
       $("phoneLabel").textContent = CONFIG.phoneLocal;
-
-      $("buildText").textContent = `Güncelleme etiketi: ${BUILD}`;
 
       const msg = encodeURIComponent("Merhaba, menüden sipariş vermek istiyorum.");
       const wa = `https://wa.me/${CONFIG.whatsappNumber}?text=${msg}`;
@@ -587,6 +541,21 @@
       const tel = `tel:${CONFIG.phoneE164}`;
       $("callBtn").href = tel;
       $("miniCall").href = tel;
+
+      $("todayLine").textContent = todayTR();
+    }
+
+    function formatPrice(p){
+      if (!p || Number(p) === 0) return `<span class="ask">Fiyat Sor</span>`;
+      return `<span class="price">${Number(p).toFixed(0)} ₺</span>`;
+    }
+
+    function catIcon(cat){
+      if (cat === "İçecekler") return "☕";
+      if (cat === "Tostlar") return "🥪";
+      if (cat === "Kahvaltılık") return "🍳";
+      if (cat === "Hepsi") return "🌸";
+      return "📌";
     }
 
     function getCategories(){
@@ -594,15 +563,7 @@
       return ["Hepsi", ...Array.from(set)];
     }
 
-    function catIcon(cat){
-      if (cat === "İçecekler") return "☕";
-      if (cat === "Tostlar") return "🥪";
-      if (cat === "Kahvaltılık") return "🍳";
-      if (cat === "Hepsi") return "✨";
-      return "📌";
-    }
-
-    let state = { q: "", cat: "Hepsi" };
+    let state = { q:"", cat:"Hepsi" };
 
     function filterItems(){
       const q = (state.q || "").toLowerCase().trim();
@@ -628,17 +589,16 @@
     function renderTabs(){
       const el = $("tabs");
       el.innerHTML = "";
-      const cats = getCategories();
-      cats.forEach(cat => {
+      getCategories().forEach(cat => {
         const b = document.createElement("div");
         b.className = "tab" + (state.cat === cat ? " active" : "");
         b.textContent = `${catIcon(cat)} ${cat}`;
-        b.onclick = () => { state.cat = cat; render(); };
+        b.onclick = () => { state.cat = cat; renderMenu(); };
         el.appendChild(b);
       });
     }
 
-    function render(){
+    function renderMenu(){
       renderTabs();
       const items = filterItems();
       const list = $("list");
@@ -662,14 +622,14 @@
         const sec = document.createElement("div");
         sec.className = "sectionTitle";
         sec.innerHTML = `
-          <div class="left">
-            <div class="icon">${catIcon(cat)}</div>
-            <div>
+          <div class="sectionLeft">
+            <div class="sectionIcon">${catIcon(cat)}</div>
+            <div class="sectionText">
               <h3>${cat}</h3>
               <p>${arr.length} ürün</p>
             </div>
           </div>
-          <div class="chip">Güncel</div>
+          <div class="chip2">Güncel</div>
         `;
         list.appendChild(sec);
 
@@ -694,44 +654,131 @@
 
     $("search").addEventListener("input", (e) => {
       state.q = e.target.value || "";
-      render();
+      renderMenu();
     });
 
-    $("year").textContent = new Date().getFullYear();
-    applyConfig();
-    render();
+    // =========================
+    // Namaz vakitleri render
+    // =========================
+    function setBadge(text){ $("calcBadge").textContent = text; }
 
-    // ✅ PWA: Güncelleme yakalama (sert)
-    // - sw.js'yi ?build ile cache bypass
-    // - updateViaCache:'none' ile kontrolü güçlendir
-    // - görünür olunca update dene
-    // - controllerchange olunca 1 kez reload
-    if ("serviceWorker" in navigator) {
-      window.addEventListener("load", async () => {
-        try {
-          const reg = await navigator.serviceWorker.register(`./sw.js?build=${BUILD}`, { updateViaCache: "none" });
+    function renderPrayerTimes(times){
+      // sadece gerekli olanlar
+      const want = [
+        { key:"Fajr",   label:"İmsak",  cls:"green" },
+        { key:"Sunrise",label:"Güneş",  cls:"" },
+        { key:"Dhuhr",  label:"Öğle",   cls:"" },
+        { key:"Asr",    label:"İkindi", cls:"" },
+        { key:"Maghrib",label:"Akşam",  cls:"pink" },
+        { key:"Isha",   label:"Yatsı",  cls:"" }
+      ];
 
-          // Açılışta update kontrolü
-          reg.update().catch(()=>{});
+      const grid = $("prayerGrid");
+      grid.innerHTML = "";
 
-          let refreshing = false;
-          navigator.serviceWorker.addEventListener("controllerchange", () => {
-            if (refreshing) return;
-            refreshing = true;
-            window.location.reload();
-          });
-
-          document.addEventListener("visibilitychange", () => {
-            if (document.visibilityState === "visible") {
-              reg.update().catch(()=>{});
-            }
-          });
-        } catch (e) {
-          // sessiz
-        }
+      want.forEach(w => {
+        const t = (times[w.key] || "--:--").toString().replace(" (TRT)","").trim();
+        const div = document.createElement("div");
+        div.className = "timePill " + (w.cls || "");
+        div.innerHTML = `<b>${w.label}</b><span>${t}</span>`;
+        grid.appendChild(div);
       });
     }
+
+    function showHint(text){
+      $("hint").textContent = text;
+    }
+
+    async function fetchByCoords(lat, lon){
+      // AlAdhan: timings endpoint
+      const url = `https://api.aladhan.com/v1/timings?latitude=${encodeURIComponent(lat)}&longitude=${encodeURIComponent(lon)}&method=${ALADHAN_METHOD}`;
+      const res = await fetch(url, { cache:"no-store" });
+      if (!res.ok) throw new Error("Vakit servisine ulaşılamadı");
+      const data = await res.json();
+      const t = data?.data?.timings;
+      if (!t) throw new Error("Vakit verisi bulunamadı");
+      return { timings: t, meta: data?.data?.meta };
+    }
+
+    async function fetchByCity(city){
+      const url = `https://api.aladhan.com/v1/timingsByCity?city=${encodeURIComponent(city)}&country=${encodeURIComponent(COUNTRY_DEFAULT)}&method=${ALADHAN_METHOD}`;
+      const res = await fetch(url, { cache:"no-store" });
+      if (!res.ok) throw new Error("Vakit servisine ulaşılamadı");
+      const data = await res.json();
+      const t = data?.data?.timings;
+      if (!t) throw new Error("Vakit verisi bulunamadı");
+      return { timings: t, meta: data?.data?.meta };
+    }
+
+    async function loadFromGeolocation(){
+      setBadge("⏳");
+      $("locText").textContent = "Konum alınıyor…";
+      showHint("Konum izni istenebilir. Lütfen izin verin.");
+
+      if (!navigator.geolocation){
+        setBadge("⚠️");
+        $("locText").textContent = "Konum desteklenmiyor";
+        showHint("Bu cihazda konum alınamadı. Şehir yazarak deneyin.");
+        return;
+      }
+
+      navigator.geolocation.getCurrentPosition(async (pos) => {
+        try{
+          const lat = pos.coords.latitude;
+          const lon = pos.coords.longitude;
+
+          const out = await fetchByCoords(lat, lon);
+          renderPrayerTimes(out.timings);
+
+          const tz = out?.meta?.timezone ? ` • ${out.meta.timezone}` : "";
+          $("locText").textContent = `Konumdan alındı${tz}`;
+          setBadge("✅");
+          showHint("Vakitler güncellendi. Şehirle de değiştirebilirsiniz.");
+        }catch(e){
+          setBadge("⚠️");
+          $("locText").textContent = "Konumdan alınamadı";
+          showHint("Servis veya bağlantı sorunu olabilir. Şehir girerek deneyin.");
+        }
+      }, (err) => {
+        setBadge("⚠️");
+        $("locText").textContent = "Konum izni yok";
+        showHint("Konum izni verilmedi. Şehir yazarak vakitleri alabilirsiniz.");
+      }, { enableHighAccuracy:false, timeout: 8000, maximumAge: 600000 });
+    }
+
+    async function loadFromCity(){
+      const city = ($("cityInput").value || "").trim();
+      if (!city){
+        showHint("Lütfen şehir yazın: örn. Yalova, İstanbul, Bursa");
+        return;
+      }
+      try{
+        setBadge("⏳");
+        $("locText").textContent = `${city} için alınıyor…`;
+        const out = await fetchByCity(city);
+        renderPrayerTimes(out.timings);
+        const tz = out?.meta?.timezone ? ` • ${out.meta.timezone}` : "";
+        $("locText").textContent = `${city}${tz}`;
+        setBadge("✅");
+        showHint("Vakitler güncellendi. İstersen konumdan da alabilirsin.");
+      }catch(e){
+        setBadge("⚠️");
+        $("locText").textContent = "Şehirden alınamadı";
+        showHint("Bağlantı sorunu olabilir. Şehri farklı yazıp tekrar deneyin.");
+      }
+    }
+
+    $("btnLoc").addEventListener("click", loadFromGeolocation);
+    $("btnCity").addEventListener("click", loadFromCity);
+
+    // İlk yükleme
+    $("year").textContent = new Date().getFullYear();
+    applyConfig();
+    renderAyet();
+    renderMenu();
+
+    // otomatik konumdan dene (izin istemek normal)
+    loadFromGeolocation();
   </script>
 </body>
 </html>
-
