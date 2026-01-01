@@ -676,25 +676,45 @@
     applyConfig();
     render();
 
-    // ✅ PWA update olunca otomatik yenile
-    if ("serviceWorker" in navigator) {
-      window.addEventListener("load", async () => {
-        try {
-          const reg = await navigator.serviceWorker.register("./sw.js");
+// ✅ PWA: güncelleme gelince bekletme, anında aktive et ve tek sefer yenile
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", async () => {
+    try {
+      const reg = await navigator.serviceWorker.register("./sw.js");
 
-          reg.addEventListener("updatefound", () => {
-            const newWorker = reg.installing;
-            if (!newWorker) return;
+      // Eğer yeni SW waiting'e düşerse, ona mesaj atıp skipWaiting yaptır
+      if (reg.waiting) {
+        reg.waiting.postMessage({ type: "SKIP_WAITING" });
+      }
 
-            newWorker.addEventListener("statechange", () => {
-              if (newWorker.state === "installed" && navigator.serviceWorker.controller) {
-                setTimeout(() => window.location.reload(), 200);
-              }
-            });
-          });
-        } catch (e) { /* sessiz */ }
+      reg.addEventListener("updatefound", () => {
+        const newWorker = reg.installing;
+        if (!newWorker) return;
+
+        newWorker.addEventListener("statechange", () => {
+          // new worker kurulduysa, aktif etmek için mesaj gönder
+          if (newWorker.state === "installed") {
+            if (reg.waiting) {
+              reg.waiting.postMessage({ type: "SKIP_WAITING" });
+            }
+          }
+        });
       });
+
+      // Controller değişince (yeni SW aktif olunca) sayfayı yenile
+      let refreshing = false;
+      navigator.serviceWorker.addEventListener("controllerchange", () => {
+        if (refreshing) return;
+        refreshing = true;
+        window.location.reload();
+      });
+    } catch (e) {
+      // sessiz
     }
+  });
+}
+
   </script>
 </body>
 </html>
+
