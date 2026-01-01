@@ -1,42 +1,29 @@
-const VERSION = "v10"; // ✅ her büyük değişiklikte v11, v12 yapabilirsin
+const VERSION = "v100"; // her büyük güncellemede v101, v102...
 const CACHE_NAME = `cihangir-menu-${VERSION}`;
 
-const ASSETS = [
-  "./",
-  "./index.html",
+const CORE = [
   "./manifest.webmanifest",
-  "./sw.js",
   "./assets/icon-192.png",
   "./assets/icon-512.png",
   "./assets/apple-touch-icon.png"
 ];
 
 self.addEventListener("install", (event) => {
-  event.waitUntil(caches.open(CACHE_NAME).then((c) => c.addAll(ASSETS)));
-  // Not: burada hemen skipWaiting demiyoruz; mesajla kontrol edeceğiz
+  event.waitUntil(caches.open(CACHE_NAME).then((c) => c.addAll(CORE)));
+  self.skipWaiting(); // ✅ beklemeden kur
 });
 
 self.addEventListener("activate", (event) => {
   event.waitUntil(
     caches.keys().then((keys) =>
-      Promise.all(
-        keys.map((k) =>
-          (k.startsWith("cihangir-menu-") && k !== CACHE_NAME) ? caches.delete(k) : null
-        )
-      )
+      Promise.all(keys.map((k) => (k.startsWith("cihangir-menu-") && k !== CACHE_NAME) ? caches.delete(k) : null))
     )
   );
   self.clients.claim();
 });
 
-// ✅ EN KRİTİK KISIM: yeni SW'yi zorla aktifleştir
-self.addEventListener("message", (event) => {
-  if (event.data && event.data.type === "SKIP_WAITING") {
-    self.skipWaiting();
-  }
-});
-
-// Network-first for HTML (en güncel gelsin), cache-first for others
+// ✅ HTML için: her zaman önce network (en güncel), düşerse cache
+// ✅ ÖNEMLİ: HTML’i request’in kendisiyle cache’liyoruz (./index.html değil)
 self.addEventListener("fetch", (event) => {
   const req = event.request;
   const url = new URL(req.url);
@@ -51,14 +38,15 @@ self.addEventListener("fetch", (event) => {
       fetch(req)
         .then((res) => {
           const copy = res.clone();
-          caches.open(CACHE_NAME).then((cache) => cache.put("./index.html", copy));
+          caches.open(CACHE_NAME).then((cache) => cache.put(req, copy));
           return res;
         })
-        .catch(() => caches.match("./index.html"))
+        .catch(() => caches.match(req))
     );
     return;
   }
 
+  // Diğer dosyalar: cache-first
   event.respondWith(
     caches.match(req).then((cached) => cached || fetch(req).then((res) => {
       const copy = res.clone();
