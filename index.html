@@ -10,16 +10,15 @@
 
   <style>
     :root{
-      /* Koyu ama göz yormayan zemin */
-      --bg:#0b1220;        /* ana arka plan */
-      --bg2:#0f1b2f;       /* hafif ton */
-      --surface:#101c33;   /* kart */
-      --surface2:#0e1930;  /* ikinci kart */
-      --ink:#f1f5ff;       /* ana yazı */
-      --muted:#b7c2d6;     /* ikincil yazı */
+      /* Koyu ama göz yormayan */
+      --bg:#0b1220;
+      --bg2:#0f1b2f;
+      --surface:#101c33;
+      --ink:#f1f5ff;
+      --muted:#b7c2d6;
       --line:rgba(255,255,255,.10);
 
-      /* Esnafa yakışan vurgu: kehribar + teal + zeytin */
+      /* Esnafa yakışan vurgu */
       --accent:#f5c451;    /* kehribar */
       --accent2:#2dd4bf;   /* teal */
       --good:#22c55e;
@@ -27,7 +26,7 @@
 
       --shadow: 0 18px 50px rgba(0,0,0,.35);
       --r2:22px;
-      --tap:52px; /* orta yaş: büyük dokunma alanı */
+      --tap:52px; /* büyük dokunma alanı */
     }
 
     *{box-sizing:border-box}
@@ -119,11 +118,14 @@
       box-shadow: var(--shadow);
     }
 
-    /* Günlük köşe */
+    /* ---------- ÜST BLOK (Kompakt) ---------- */
     .daily{padding:14px; display:grid; gap:12px;}
+    .daily.compact{ padding:12px; gap:10px; }
     .dailyHead{
       display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;
     }
+    .daily.compact .dailyHead{ margin-bottom:2px; }
+
     .badge{
       display:inline-flex;align-items:center;gap:8px;
       padding:9px 12px;
@@ -138,6 +140,7 @@
     .today{font-size:12px;color:var(--muted);font-weight:850;}
 
     .dailyGrid{display:grid;gap:12px;}
+    .daily.compact .dailyGrid{ gap:10px; }
     @media(min-width:860px){ .dailyGrid{ grid-template-columns: 1.05fr .95fr; } }
 
     .ayatBox{
@@ -148,14 +151,24 @@
         rgba(255,255,255,.03);
       padding:12px;
     }
+    .daily.compact .ayatBox{ padding:10px; }
     .ayatTop{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;flex-wrap:wrap;}
     .ayatRef{font-size:12px;color:var(--muted);font-weight:900;}
     .ayatText{
       margin-top:8px;
-      font-size:15px;         /* orta yaş: bir tık büyük */
+      font-size:15px;
       line-height:1.45;
       font-weight:950;
       color: rgba(255,255,255,.92);
+    }
+    /* kompakt modda ayet 2 satır */
+    .daily.compact .ayatText{
+      font-size:14px;
+      line-height:1.35;
+      display:-webkit-box;
+      -webkit-line-clamp:2;
+      -webkit-box-orient:vertical;
+      overflow:hidden;
     }
     .ayatNote{
       margin-top:8px;
@@ -163,6 +176,7 @@
       color: var(--muted);
       line-height:1.4;
     }
+    .daily.compact .ayatNote{ display:none; }
 
     .prayerBox{
       border-radius:18px;
@@ -170,6 +184,7 @@
       background: rgba(255,255,255,.03);
       padding:12px;
     }
+    .daily.compact .prayerBox{ padding:10px; }
     .prayerTop{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;flex-wrap:wrap;}
     .prayerTitle{margin:0;font-size:13px;letter-spacing:.2px;font-weight:950;}
     .loc{font-size:12px;color:var(--muted);font-weight:850;}
@@ -189,6 +204,9 @@
       grid-template-columns: 1fr 1fr;
       gap:8px;
     }
+    /* kompakt modda 3 kolon */
+    .daily.compact .times{ grid-template-columns: 1fr 1fr 1fr; }
+
     .timePill{
       padding:12px 12px;
       border-radius:16px;
@@ -196,12 +214,16 @@
       background: rgba(255,255,255,.04);
       display:flex;align-items:center;justify-content:space-between;gap:10px;
     }
+    .daily.compact .timePill{ padding:10px; border-radius:14px; }
     .timePill b{font-size:12px;color: rgba(255,255,255,.80);}
     .timePill span{font-weight:1000;color: rgba(255,255,255,.95);}
+    .daily.compact .timePill b{ font-size:11px; }
+    .daily.compact .timePill span{ font-size:12px; }
+
     .timePill.green{ background: rgba(34,197,94,.12); border-color: rgba(34,197,94,.22); }
     .timePill.orange{ background: rgba(249,115,22,.10); border-color: rgba(249,115,22,.20); }
 
-    /* Sonraki vakit */
+    /* Sonraki vakit - mini */
     #nextLine{
       margin-top:10px;
       border:1px solid rgba(245,196,81,.20);
@@ -214,13 +236,40 @@
       gap:10px;
       flex-wrap:wrap;
     }
+    .daily.compact #nextLine{ padding:10px 10px; border-radius:14px; }
     #nextLine b{font-size:12px;color:rgba(255,255,255,.80)}
     #nextLine span{font-size:12px;color:rgba(255,255,255,.92);font-weight:1000}
+    .daily.compact #nextLine b{ font-size:11px; }
+    .daily.compact #nextLine span{ font-size:11px; }
+
+    /* Katlanır ayar alanı */
+    .fold{
+      margin-top:8px;
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:16px;
+      overflow:hidden;
+      background: rgba(255,255,255,.02);
+    }
+    .foldSummary{
+      width:100%;
+      background: rgba(255,255,255,.03);
+      border:0;
+      padding:10px 12px;
+      color: rgba(255,255,255,.92);
+      font-weight:950;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      cursor:pointer;
+    }
+    .foldSummary:active{ transform:scale(.995); }
+    .foldBody{ padding:10px 12px; }
 
     .prayerActions{
       margin-top:10px;
       display:flex;gap:10px;flex-wrap:wrap;
     }
+    .daily.compact .prayerActions{ margin-top:0; }
     .input{
       flex: 1 1 160px;
       min-width: 160px;
@@ -260,12 +309,11 @@
       line-height:1.45;
     }
 
-    /* Menü başlığı */
+    /* ---------- MENÜ ALANI ---------- */
     .menuHero{margin-top:14px;padding:14px;}
     .menuHero h2{margin:0;font-size:18px;font-weight:1000;}
     .menuHero p{margin:8px 0 0;font-size:13px;color:var(--muted);line-height:1.45;}
 
-    /* arama + kategori */
     .toolbar{margin-top:14px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;}
     .search{
       flex:1 1 260px;min-width:220px;
@@ -298,7 +346,6 @@
       color: rgba(255,255,255,.95);
     }
 
-    /* Liste */
     .list{margin-top:14px;display:grid;gap:10px;}
     .sectionTitle{
       display:flex;align-items:center;justify-content:space-between;gap:10px;
@@ -425,7 +472,8 @@
   </div>
 
   <div class="wrap">
-    <section class="card daily">
+    <!-- ✅ Üst alan artık kompakt -->
+    <section class="card daily compact">
       <div class="dailyHead">
         <span class="badge">📌 Günlük Bilgi</span>
         <span class="today" id="todayLine"></span>
@@ -457,13 +505,28 @@
             <span><span id="nextPrayerName">—</span> • <span id="nextPrayerCountdown">--:--:--</span></span>
           </div>
 
-          <div class="prayerActions">
-            <button class="smallBtn primary" id="btnLoc">📍 Konumdan</button>
-            <input class="input" id="cityInput" placeholder="Şehir (örn: Yalova)" />
-            <button class="smallBtn" id="btnCity">🏙️ Şehirden</button>
+          <!-- ✅ Konum/şehir alanı katlanır -->
+          <div class="fold">
+            <button class="foldSummary" type="button" id="foldBtn">
+              ⚙️ Konum / Şehir Ayarı
+              <span id="foldIcon">▾</span>
+            </button>
+
+            <div class="foldBody" id="foldBody" style="display:none;">
+              <div class="prayerActions">
+                <button class="smallBtn primary" id="btnLoc">📍 Konumdan</button>
+                <input class="input" id="cityInput" placeholder="Şehir (örn: Yalova)" />
+                <button class="smallBtn" id="btnCity">🏙️ Şehirden</button>
+              </div>
+
+              <div class="hint" id="hint" style="margin-top:10px;">
+                Konum izni verirsen otomatik gelir. İzin yoksa şehir yazarak alabilirsin.
+              </div>
+            </div>
           </div>
 
-          <div class="hint" id="hint">
+          <!-- hint yedek -->
+          <div class="hint" id="hintFallback" style="display:none;">
             Konum izni verirsen otomatik gelir. İzin yoksa şehir yazarak alabilirsin.
           </div>
         </div>
@@ -528,42 +591,57 @@
       phoneE164: "+905073190278",
       whatsappNumber: "905073190278",
       hours: "Her gün 09:00 – 22:00",
-      address: "Yeni Mah. Fatih Cad.",
+      address: "Yeni Mah. Fatih Cad",
       heroTitle: "QR Menü",
       heroText: "Fiyatlar günceldir. Aramak veya WhatsApp’tan yazmak için alttaki butonları kullanabilirsiniz."
     };
 
     // price:0 => “Fiyat Sor”
     const MENU = [
-      { category: "İÇEÇEKLER", name: "Çay", price: 15, icon: "🍵", desc: "Demli, sıcak"},
-      { category: "İÇEÇEKLER", name: "Türk Kahvesi", price: 85, icon: "☕", desc: "Köz tadında"  },
-      { category: "İÇEÇEKLER", name: "Nescafe", price: 40, icon: "🥤", desc: "3'ü 1 arada / seçenekli"},
-      { category: "İÇEÇEKLER", name: "Oralet (Çeşitleri)", price: 15, icon: "🍊", desc: "Portakal / elma vb." },
+      { category: "İÇECEKLER", name: "Çay", price: 15, icon: "🍵", desc: "Demli, sıcak", tag: "Sıcak" },
+      { category: "İÇECEKLER", name: "Türk Kahvesi", price: 85, icon: "☕", desc: "Köz tadında", tag: "Kahve" },
+      { category: "İÇECEKLER", name: "Nescafe", price: 40, icon: "🥤", desc: "3'ü 1 arada / seçenekli", tag: "Kahve" },
+      { category: "İÇECEKLER", name: "Oralet (Çeşitleri)", price: 15, icon: "🍊", desc: "Portakal / elma vb.", tag: "Sıcak" },
 
-      { category: "TOST ÇEŞİTLERİ", name: "Kaşarlı Tost", price: 0, icon: "🥪", desc: "Bol kaşarlı" },
-      { category: "TOST ÇEŞİTLERİ", name: "Sucuklu Tost", price: 0, icon: "🥪", desc: "Bol sucuklu"},
-      { category: "TOST ÇEŞİTLERİ", name: "Kaşarlı + Sucuklu (Karışık)", price: 0, icon: "🥪", desc: "Karışık" },
-      { category: "TOST ÇEŞİTLERİ", name: "Kavurmalı Tost(Çok yakında)", price: 0, icon: "🥪", desc: "Kavurmalı" },
-      { category: "TOST ÇEŞİTLERİ", name: "Kavurmalı + Kaşarlı(Çok Yakında)", price: 0, icon: "🥪", desc: "Kavurma + kaşar"},
-      { category: "TOST ÇEŞİTLERİ", name: "Kavurmalı + Sucuklu(Çok yakında)", price: 0, icon: "🥪", desc: "Kavurma + sucuk"},
+      { category: "TOST ÇEŞİTLERİ", name: "Kaşarlı Tost", price: 100, icon: "🥪", desc: "Bol kaşarlı", tag: "Tost" },
+      { category: "TOST ÇEŞİTLERİ", name: "Sucuklu Tost", price: 100, icon: "🥪", desc: "Bol sucuklu", tag: "Tost" },
+      { category: "TOST ÇEŞİTLERİ", name: "Kaşarlı + Sucuklu (Karışık)", price: 120, icon: "🥪", desc: "Karışık", tag: "Tost" },
+      //{ category: "TOST ÇEŞİTLERİ", name: "Kavurmalı Tost", price: 0, icon: "🥪", desc: "Kavurmalı", tag: "Tost" },
+     // { category: "TOST ÇEŞİTLERİ", name: "Kavurmalı + Kaşarlı", price: 0, icon: "🥪", desc: "Kavurma + kaşar", tag: "Tost" },
+     // { category: "TOST ÇEŞİTLERİ", name: "Kavurmalı + Sucuklu", price: 0, icon: "🥪", desc: "Kavurma + sucuk", tag: "Tost" },
 
-      { category: "KAHVALTILIK", name: "Haşlanmış Yumurta", price: 0, icon: "🥚", desc: "Sıcacık" },
-      { category: "KAHVALTILIK", name: "Tavada Yumurta", price: 0, icon: "🍳", desc: "İstersen tereyağlı" },
-      { category: "KAHVALTILIK", name: "MENEMEN", price: 0, icon: "🍳", desc: "İstersen kaşarlı" },
+     // { category: "KAHVALTILIK", name: "Haşlanmış Yumurta", price: 0, icon: "🥚", desc: "Sıcacık", tag: "Yiyecek" },
+    //  { category: "KAHVALTILIK", name: "Tavada Yumurta", price: 0, icon: "🍳", desc: "İstersen tereyağlı", tag: "Yiyecek" }
     ];
 
     // =========================
-    // Günün Ayeti (güne göre otomatik, kısa)
+    // Günün Ayeti (güne göre otomatik)
     // =========================
     const AYAT_LIST = [
-      { ref:"Ra’d 13:28",  text:"Kalpler Allah’ı anmakla huzur bulur.", note:"Bugün: Huzur ve şükür." },
-      { ref:"İnşirah 94:5",text:"Zorlukla beraber kolaylık vardır.",   note:"Bugün: Sabır ve umut." },
-      { ref:"Bakara 2:286",text:"Kimseye gücünün yetmediği yük yüklenmez.", note:"Bugün: Güç ve güven." },
-      { ref:"Zümer 39:53", text:"Ümitsizliğe düşmeyin; rahmet geniştir.",  note:"Bugün: Umut ve af." },
-      { ref:"Asr 103:1-3", text:"Zaman kıymetlidir: iman, iyi iş, hakkı ve sabır.", note:"Bugün: Zamanı bereketli kullan." },
-      { ref:"Hucurât 49:10",text:"Müminler kardeştir; arayı düzeltin.", note:"Bugün: Gönül alma." },
-      { ref:"Nahl 16:97",  text:"İyi iş yapanlara güzel bir hayat vardır.", note:"Bugün: İyilik ve bereket." },
-      { ref:"Âl-i İmrân 3:159", text:"Kararlı ol ve Allah’a tevekkül et.", note:"Bugün: Nezaket ve güven." }
+      { ref:"Bakara 2:286", text:"Kimseye gücünün yetmediği yük yüklenmez.", note:"Bugün: Güç ve güven." },
+      { ref:"Ra’d 13:28", text:"Kalpler Allah’ı anmakla huzur bulur.", note:"Bugün: Huzur ve şükür." },
+      { ref:"İnşirah 94:5", text:"Zorlukla beraber kolaylık vardır.", note:"Bugün: Sabır ve umut." },
+      { ref:"Zümer 39:53", text:"Ümitsizliğe düşmeyin; Allah’ın rahmetinden ümit kesmeyin.", note:"Bugün: Umut ve af." },
+      { ref:"Asr 103:1-3", text:"Zamanı iyi değerlendirmek: iman, iyi iş, hakkı ve sabrı tavsiye.", note:"Bugün: Zamanı bereketli kullan." },
+      { ref:"Hucurât 49:10", text:"Müminler kardeştir; arayı düzeltin.", note:"Bugün: Gönül alma." },
+      { ref:"Nahl 16:97", text:"İyi iş yapanlara güzel bir hayat vardır.", note:"Bugün: İyilik ve bereket." },
+      { ref:"Âl-i İmrân 3:159", text:"Kararlı ol ve Allah’a tevekkül et.", note:"Bugün: Nezaket ve güven." },
+      { ref:"Hadîd 57:4", text:"O, sizinle beraberdir; yaptıklarınızı görür.", note:"Bugün: Farkındalık." },
+      { ref:"Tevbe 9:51", text:"Allah’ın yazdığı dışında bize hiçbir şey isabet etmez.", note:"Bugün: Teslimiyet." },
+      { ref:"Bakara 2:152", text:"Beni anın ki ben de sizi anayım; şükredin.", note:"Bugün: Şükür." },
+      { ref:"Nisâ 4:36", text:"Allah’a kulluk edin; iyilik yapın.", note:"Bugün: İyilik." },
+      { ref:"Şûrâ 42:30", text:"Başınıza gelenler kendi yaptıklarınız sebebiyledir; çoğunu affeder.", note:"Bugün: Tevbe." },
+      { ref:"Fussilet 41:34", text:"Kötülüğü en güzel şekilde sav; düşmanlık dostluğa dönebilir.", note:"Bugün: Güzel söz." },
+      { ref:"Mülk 67:2", text:"Hanginiz daha güzel işler yapacak diye hayatı imtihan kıldı.", note:"Bugün: Güzel amel." },
+      { ref:"Enfâl 8:46", text:"Sabredin; Allah sabredenlerle beraberdir.", note:"Bugün: Sabır." },
+      { ref:"Tâhâ 20:46", text:"Korkmayın; ben sizinle beraberim.", note:"Bugün: Sakinlik." },
+      { ref:"Kasas 28:77", text:"İyilik yap; Allah iyilik yapanları sever.", note:"Bugün: İyilik ve denge." },
+      { ref:"Bakara 2:153", text:"Sabır ve namazla yardım isteyin.", note:"Bugün: Dayanıklılık." },
+      { ref:"Hûd 11:114", text:"İyilikler kötülükleri giderir.", note:"Bugün: Temizlik." },
+      { ref:"Lokmân 31:18-19", text:"Kibirlenme; sesini alçalt; dengeli ol.", note:"Bugün: Tevazu." },
+      { ref:"İsrâ 17:82", text:"Kur’an müminlere şifa ve rahmettir.", note:"Bugün: Rahmet." },
+      { ref:"Mâide 5:2", text:"İyilik ve takvada yardımlaşın.", note:"Bugün: Yardımlaşma." },
+      { ref:"En’âm 6:160", text:"Bir iyilik on katıyla karşılık bulur.", note:"Bugün: Bereket." }
     ];
 
     // =========================
@@ -735,7 +813,12 @@
 
     // ------- Namaz vakitleri -------
     function setBadge(text){ $("calcBadge").textContent = text; }
-    function showHint(text){ $("hint").textContent = text; }
+    function showHint(text){
+      const h = $("hint");
+      const hf = $("hintFallback");
+      if (h) { h.textContent = text; return; }
+      if (hf) { hf.style.display="block"; hf.textContent = text; }
+    }
 
     function renderPrayerTimes(times){
       const want = [
@@ -971,18 +1054,32 @@
       }
     }
 
+    // ✅ Konum/Şehir ayarını aç-kapa
+    function setupFold(){
+      const foldBtn = $("foldBtn");
+      const foldBody = $("foldBody");
+      const foldIcon = $("foldIcon");
+      if (!foldBtn || !foldBody) return;
+
+      foldBtn.addEventListener("click", () => {
+        const open = foldBody.style.display !== "none";
+        foldBody.style.display = open ? "none" : "block";
+        if (foldIcon) foldIcon.textContent = open ? "▾" : "▴";
+      });
+    }
+
+    // Eventler
     $("btnLoc").addEventListener("click", loadFromGeolocation);
     $("btnCity").addEventListener("click", loadFromCity);
 
     // İlk yükleme
     $("year").textContent = new Date().getFullYear();
+    $("todayLine").textContent = todayTR();
     applyConfig();
     renderAyet();
     renderMenu();
-    loadFromGeolocation();
+    setupFold();
+    loadFromGeolocation(); // otomatik dene
   </script>
 </body>
 </html>
-
-
-
