@@ -5,32 +5,37 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Cihangir Çay Ocağı | QR Menü</title>
   <meta name="description" content="Cihangir Çay Ocağı QR Menü" />
-  <meta name="theme-color" content="#0b1220">
+  <meta name="theme-color" content="#caa46a">
 
-  <!-- ✅ iPhone ana ekrana ekleme (PWA görünümü) -->
+  <!-- iPhone ana ekrana ekleme görünümü -->
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="Cihangir Menü">
   <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png">
 
-  <!-- ✅ Android PWA için manifest (tek dosya değil; birazdan anlatacağım) -->
+  <!-- Android PWA (varsa) -->
   <link rel="manifest" href="./manifest.webmanifest">
 
   <style>
     :root{
-      --bg:#0b1220;
-      --bg2:#0f1b2f;
-      --ink:#f1f5ff;
-      --muted:#b7c2d6;
-      --line:rgba(255,255,255,.10);
+      /* Kahve tonları - açık, esnaf dostu */
+      --bg: #fbf7f0;         /* krem */
+      --bg2:#f3eadb;         /* latte */
+      --card:#ffffff;        /* kart */
+      --ink:#2b1d14;         /* espresso yazı */
+      --muted:#6e5b4f;       /* ikincil yazı */
+      --line: rgba(43,29,20,.10);
 
-      --accent:#f5c451;    /* kehribar */
-      --accent2:#2dd4bf;   /* teal */
-      --good:#22c55e;
-      --danger:#f97316;
+      --accent:#caa46a;      /* karamel */
+      --accent2:#7a4a2b;     /* kahverengi */
+      --good:#1f7a4a;
 
-      --shadow: 0 18px 50px rgba(0,0,0,.35);
+      --shadow: 0 12px 30px rgba(43,29,20,.10);
+      --shadow2: 0 8px 18px rgba(43,29,20,.08);
+
+      --r1:18px;
       --r2:22px;
+
       --tap:52px;
     }
 
@@ -41,16 +46,16 @@
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", sans-serif;
       color:var(--ink);
       background:
-        radial-gradient(1200px 600px at 10% -10%, rgba(245,196,81,.10), transparent 60%),
-        radial-gradient(1100px 600px at 110% 10%, rgba(45,212,191,.10), transparent 60%),
-        radial-gradient(1100px 600px at 20% 120%, rgba(96,165,250,.08), transparent 60%),
+        radial-gradient(900px 500px at 15% -10%, rgba(202,164,106,.18), transparent 60%),
+        radial-gradient(900px 500px at 110% 15%, rgba(122,74,43,.10), transparent 60%),
         linear-gradient(180deg, var(--bg), var(--bg2));
       min-height:100vh;
     }
 
+    /* Üst bar */
     .top{
       position:sticky; top:0; z-index:50;
-      background: rgba(11,18,32,.82);
+      background: rgba(251,247,240,.86);
       backdrop-filter: blur(10px);
       border-bottom:1px solid var(--line);
     }
@@ -68,14 +73,14 @@
     .logo{
       width:46px;height:46px;border-radius:18px;
       background:
-        radial-gradient(circle at 30% 30%, rgba(245,196,81,.95), rgba(245,196,81,.15) 60%, transparent 70%),
-        radial-gradient(circle at 70% 70%, rgba(45,212,191,.85), rgba(45,212,191,.12) 60%, transparent 70%),
-        rgba(255,255,255,.04);
-      border:1px solid rgba(255,255,255,.12);
-      box-shadow: 0 14px 28px rgba(0,0,0,.35);
+        radial-gradient(circle at 30% 25%, rgba(202,164,106,.95), rgba(202,164,106,.20) 60%, transparent 70%),
+        radial-gradient(circle at 75% 80%, rgba(122,74,43,.55), rgba(122,74,43,.10) 60%, transparent 70%),
+        rgba(255,255,255,.7);
+      border:1px solid rgba(43,29,20,.12);
+      box-shadow: var(--shadow2);
       flex:0 0 auto;
     }
-    .title{min-width:0;line-height:1.2;}
+    .title{min-width:0;line-height:1.15;}
     .title h1{
       margin:0;
       font-size:16px;
@@ -99,316 +104,111 @@
       display:inline-flex;align-items:center;justify-content:center;gap:8px;
       padding:0 12px;
       border-radius:14px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.04);
+      border:1px solid rgba(43,29,20,.14);
+      background: rgba(255,255,255,.75);
       color:var(--ink);
       text-decoration:none;
-      font-weight:950;
+      font-weight:900;
       font-size:13px;
-      box-shadow: 0 10px 24px rgba(0,0,0,.30);
+      box-shadow: var(--shadow2);
       user-select:none;
       transition: transform .08s ease;
     }
     .btn:active{transform:scale(.98)}
     .btn.primary{
-      border-color: rgba(245,196,81,.35);
-      background: linear-gradient(135deg, rgba(245,196,81,.20), rgba(45,212,191,.10));
+      border-color: rgba(122,74,43,.18);
+      background: linear-gradient(135deg, rgba(202,164,106,.40), rgba(255,255,255,.75));
     }
 
     .wrap{max-width:980px;margin:0 auto;padding:16px 14px 98px;}
+
     .card{
-      background: rgba(16,28,51,.78);
-      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.92);
+      border:1px solid rgba(43,29,20,.10);
       border-radius: var(--r2);
       box-shadow: var(--shadow);
     }
 
-    /* ✅ Ana ekrana ekle banner */
-    .installBar{
-      max-width:980px;
-      margin:10px auto 0;
-      padding:0 14px;
-    }
-    .installCard{
-      display:none;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      padding:10px 12px;
-      border-radius:16px;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
-      box-shadow: 0 14px 30px rgba(0,0,0,.20);
-    }
-    .installLeft{display:flex;align-items:center;gap:10px;min-width:0;}
-    .installIcon{
-      width:40px;height:40px;border-radius:16px;
-      display:grid;place-items:center;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(245,196,81,.12);
-      font-size:18px;
-      flex:0 0 auto;
-    }
-    .installText{min-width:0;}
-    .installText b{
-      display:block;
-      font-size:13px;
-      font-weight:1000;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-    }
-    .installText small{
-      display:block;
-      margin-top:2px;
-      font-size:12px;
-      color:rgba(183,194,214,.92);
-      line-height:1.2;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-    }
-    .installBtns{display:flex;gap:8px;flex:0 0 auto;}
-    .ibtn{
-      height:40px;
-      padding:0 12px;
-      border-radius:14px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.04);
-      color: var(--ink);
-      font-weight:1000;
-      cursor:pointer;
-      user-select:none;
-    }
-    .ibtn.primary{
-      border-color: rgba(245,196,81,.35);
-      background: linear-gradient(135deg, rgba(245,196,81,.22), rgba(45,212,191,.10));
-    }
-    .ibtn:active{transform:scale(.99)}
-
-    /* ---------- ÜST BLOK (Kompakt) ---------- */
-    .daily{padding:12px; display:grid; gap:10px;}
-    .dailyHead{
-      display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;
-      margin-bottom:2px;
+    /* Üst tanıtım kartı */
+    .hero{padding:14px;}
+    .heroTop{
+      display:flex;align-items:flex-start;justify-content:space-between;gap:10px;flex-wrap:wrap;
     }
     .badge{
       display:inline-flex;align-items:center;gap:8px;
-      padding:9px 12px;
+      padding:8px 12px;
       border-radius:999px;
-      background: rgba(245,196,81,.12);
-      border:1px solid rgba(245,196,81,.25);
-      color: rgba(255,255,255,.92);
-      font-size:12px;
-      font-weight:950;
-      white-space:nowrap;
-    }
-    .today{font-size:12px;color:var(--muted);font-weight:850;}
-
-    .dailyGrid{display:grid;gap:10px;}
-    @media(min-width:860px){ .dailyGrid{ grid-template-columns: 1.1fr .9fr; } }
-
-    .ayatBox{
-      border-radius:18px;
-      border:1px solid rgba(255,255,255,.10);
-      background:
-        linear-gradient(135deg, rgba(245,196,81,.10), rgba(45,212,191,.08)),
-        rgba(255,255,255,.03);
-      padding:10px;
-    }
-    .ayatTop{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;flex-wrap:wrap;}
-    .ayatRef{font-size:12px;color:var(--muted);font-weight:900;}
-
-    .ayatArab{
-      margin-top:10px;
-      direction:rtl;
-      text-align:right;
-      font-size:17px;
-      line-height:1.6;
-      font-weight:900;
-      color: rgba(255,255,255,.95);
-      letter-spacing:.1px;
-      display:-webkit-box;
-      -webkit-line-clamp:2;
-      -webkit-box-orient:vertical;
-      overflow:hidden;
-    }
-    .ayatTr{
-      margin-top:8px;
-      font-size:12px;
-      color: rgba(183,194,214,.92);
-      line-height:1.45;
-      display:-webkit-box;
-      -webkit-line-clamp:2;
-      -webkit-box-orient:vertical;
-      overflow:hidden;
-    }
-    .vecizeBox{
-      margin-top:10px;
-      padding:10px;
-      border-radius:16px;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
-    }
-    .vecizeTop{
-      display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;
-    }
-    .vecizeTitle{
-      display:inline-flex;align-items:center;gap:8px;
-      font-size:12px;
-      font-weight:950;
-      color: rgba(255,255,255,.92);
-      padding:7px 10px;
-      border-radius:999px;
-      border:1px solid rgba(45,212,191,.22);
-      background: rgba(45,212,191,.10);
-    }
-    .vecizeText{
-      margin-top:8px;
-      font-size:13px;
-      font-weight:900;
-      color: rgba(255,255,255,.92);
-      line-height:1.35;
-      display:-webkit-box;
-      -webkit-line-clamp:2;
-      -webkit-box-orient:vertical;
-      overflow:hidden;
-    }
-
-    .prayerBox{
-      border-radius:18px;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
-      padding:10px;
-    }
-    .prayerTop{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;flex-wrap:wrap;}
-    .prayerTitle{margin:0;font-size:13px;letter-spacing:.2px;font-weight:950;}
-    .loc{font-size:12px;color:var(--muted);font-weight:850;}
-    .status{
-      display:inline-flex;align-items:center;gap:8px;
-      padding:7px 10px;border-radius:999px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(45,212,191,.10);
-      color: rgba(255,255,255,.90);
-      font-size:12px;font-weight:950;
-      white-space:nowrap;
-    }
-
-    .times{
-      margin-top:10px;
-      display:grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap:8px;
-    }
-    .timePill{
-      padding:10px 10px;
-      border-radius:14px;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.04);
-      display:flex;align-items:center;justify-content:space-between;gap:10px;
-    }
-    .timePill b{font-size:11px;color: rgba(255,255,255,.80);}
-    .timePill span{font-weight:1000;font-size:12px;color: rgba(255,255,255,.95);}
-    .timePill.green{ background: rgba(34,197,94,.12); border-color: rgba(34,197,94,.22); }
-    .timePill.orange{ background: rgba(249,115,22,.10); border-color: rgba(249,115,22,.20); }
-
-    #nextLine{
-      margin-top:10px;
-      border:1px solid rgba(245,196,81,.20);
-      background: rgba(245,196,81,.08);
-      padding:10px 10px;
-      border-radius:14px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      flex-wrap:wrap;
-    }
-    #nextLine b{font-size:11px;color:rgba(255,255,255,.80)}
-    #nextLine span{font-size:11px;color:rgba(255,255,255,.92);font-weight:1000}
-
-    .miniActions{
-      margin-top:10px;
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-    }
-    .smallBtn{
-      height:44px;
-      padding:0 12px;
-      border-radius:14px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.04);
-      font-weight:950;
-      font-size:13px;
-      cursor:pointer;
+      background: rgba(202,164,106,.20);
+      border:1px solid rgba(202,164,106,.35);
       color: var(--ink);
-      box-shadow: 0 12px 26px rgba(0,0,0,.25);
-      user-select:none;
+      font-size:12px;
+      font-weight:950;
       white-space:nowrap;
     }
-    .smallBtn.primary{
-      border-color: rgba(245,196,81,.35);
-      background: linear-gradient(135deg, rgba(245,196,81,.22), rgba(45,212,191,.10));
+    .hero h2{margin:10px 0 0;font-size:18px;font-weight:1000;}
+    .hero p{margin:8px 0 0;font-size:13px;color:var(--muted);line-height:1.45;}
+    .noteRow{
+      margin-top:12px;
+      display:flex;gap:10px;flex-wrap:wrap;
     }
-    .hint{
-      margin-top:10px;
+    .note{
+      padding:10px 12px;
+      border-radius:16px;
+      border:1px solid rgba(43,29,20,.10);
+      background: rgba(251,247,240,.72);
+      font-weight:900;
       font-size:12px;
-      color: var(--muted);
-      line-height:1.45;
+      color: rgba(43,29,20,.88);
     }
 
-    /* ---------- MENÜ ALANI ---------- */
-    .menuHero{margin-top:14px;padding:14px;}
-    .menuHero h2{margin:0;font-size:18px;font-weight:1000;}
-    .menuHero p{margin:8px 0 0;font-size:13px;color:var(--muted);line-height:1.45;}
-
+    /* Arama + kategoriler */
     .toolbar{margin-top:14px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;}
     .search{
       flex:1 1 260px;min-width:220px;
       height: var(--tap);
       padding:0 12px;border-radius:16px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.04);
+      border:1px solid rgba(43,29,20,.14);
+      background: rgba(255,255,255,.92);
       color:var(--ink);
       outline:none;font-size:14px;
-      box-shadow: 0 12px 26px rgba(0,0,0,.25);
+      box-shadow: var(--shadow2);
     }
-    .search::placeholder{color: rgba(183,194,214,.72)}
+    .search::placeholder{color: rgba(110,91,79,.85)}
     .tabs{display:flex;gap:8px;flex-wrap:wrap;}
     .tab{
       height: 42px;
       padding:0 12px;border-radius:999px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.04);
-      color:rgba(255,255,255,.92);
+      border:1px solid rgba(43,29,20,.14);
+      background: rgba(255,255,255,.85);
+      color:rgba(43,29,20,.92);
       font-weight:950;font-size:12px;
       cursor:pointer;user-select:none;
-      box-shadow: 0 12px 26px rgba(0,0,0,.22);
+      box-shadow: var(--shadow2);
       transition: transform .08s ease;
       display:inline-flex;align-items:center;gap:8px;
     }
     .tab:active{transform:scale(.99)}
     .tab.active{
-      border-color: rgba(245,196,81,.40);
-      background: rgba(245,196,81,.16);
-      color: rgba(255,255,255,.95);
+      border-color: rgba(122,74,43,.20);
+      background: rgba(202,164,106,.26);
+      color: rgba(43,29,20,.95);
     }
 
+    /* Liste */
     .list{margin-top:14px;display:grid;gap:10px;}
     .sectionTitle{
       display:flex;align-items:center;justify-content:space-between;gap:10px;
       padding:12px;border-radius:18px;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
-      box-shadow: 0 12px 26px rgba(0,0,0,.22);
+      border:1px solid rgba(43,29,20,.10);
+      background: rgba(255,255,255,.92);
+      box-shadow: var(--shadow2);
     }
     .sectionLeft{display:flex;align-items:center;gap:10px;min-width:0;}
     .sectionIcon{
       width:42px;height:42px;border-radius:16px;
       display:grid;place-items:center;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(245,196,81,.12);
+      border:1px solid rgba(43,29,20,.12);
+      background: rgba(202,164,106,.22);
       flex:0 0 auto;
       font-size:18px;
     }
@@ -416,9 +216,9 @@
     .sectionText p{margin:6px 0 0;font-size:12px;color:var(--muted);}
     .chip2{
       font-size:11px;padding:7px 10px;border-radius:999px;
-      border:1px solid rgba(45,212,191,.25);
-      background: rgba(45,212,191,.10);
-      color: rgba(255,255,255,.88);
+      border:1px solid rgba(43,29,20,.12);
+      background: rgba(251,247,240,.80);
+      color: rgba(43,29,20,.88);
       font-weight:950;
       white-space:nowrap;
     }
@@ -426,15 +226,15 @@
     .item{
       display:flex;gap:12px;align-items:center;
       padding:12px;border-radius:18px;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
-      box-shadow: 0 14px 30px rgba(0,0,0,.22);
+      border:1px solid rgba(43,29,20,.10);
+      background: rgba(255,255,255,.92);
+      box-shadow: var(--shadow2);
     }
     .iIcon{
       width:44px;height:44px;border-radius:16px;
       display:grid;place-items:center;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.04);
+      border:1px solid rgba(43,29,20,.12);
+      background: rgba(251,247,240,.80);
       flex:0 0 auto;
       font-size:18px;
     }
@@ -442,20 +242,20 @@
     .meta .name{margin:0;font-weight:1000;font-size:15px;}
     .meta .desc{margin:6px 0 0;font-size:12px;color:var(--muted);line-height:1.35;}
     .right{flex:0 0 auto;text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:6px;}
-    .price{font-weight:1100;font-size:16px;color:rgba(255,255,255,.95);}
+    .price{font-weight:1100;font-size:16px;color:rgba(43,29,20,.95);}
     .ask{
       font-size:11px;padding:7px 10px;border-radius:999px;
-      border:1px dashed rgba(255,255,255,.18);
-      background: rgba(183,194,214,.10);
-      color: rgba(255,255,255,.82);
+      border:1px dashed rgba(43,29,20,.25);
+      background: rgba(202,164,106,.16);
+      color: rgba(43,29,20,.90);
       font-weight:950;
       white-space:nowrap;
     }
     .tag{
       font-size:11px;padding:7px 10px;border-radius:999px;
-      border:1px solid rgba(245,196,81,.25);
-      background: rgba(245,196,81,.10);
-      color: rgba(255,255,255,.88);
+      border:1px solid rgba(202,164,106,.35);
+      background: rgba(202,164,106,.18);
+      color: rgba(43,29,20,.90);
       font-weight:950;
       white-space:nowrap;
     }
@@ -463,23 +263,24 @@
     .infoGrid{margin-top:14px;display:grid;gap:10px;grid-template-columns:1fr;}
     @media(min-width:860px){.infoGrid{grid-template-columns:1fr 1fr;}}
     .info{
-      padding:12px;border-radius:18px;border:1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
-      box-shadow: 0 12px 26px rgba(0,0,0,.22);
+      padding:12px;border-radius:18px;border:1px solid rgba(43,29,20,.10);
+      background: rgba(255,255,255,.92);
+      box-shadow: var(--shadow2);
     }
     .info h4{
       margin:0;font-size:13px;
-      color: rgba(245,196,81,.95);
+      color: rgba(122,74,43,.95);
       display:flex;gap:8px;align-items:center;font-weight:1000;
     }
     .info p{margin:8px 0 0;color:var(--muted);font-size:13px;line-height:1.45;}
 
-    .footer{margin-top:14px;text-align:center;color:rgba(183,194,214,.92);font-size:12px;line-height:1.6;}
+    .footer{margin-top:14px;text-align:center;color:rgba(110,91,79,.92);font-size:12px;line-height:1.6;}
 
+    /* Alt bar */
     .bottomBar{
       position:fixed;left:0;right:0;bottom:0;z-index:60;
       padding:10px 12px;
-      background: rgba(11,18,32,.88);
+      background: rgba(251,247,240,.92);
       border-top:1px solid var(--line);
       backdrop-filter: blur(10px);
     }
@@ -489,17 +290,17 @@
       height:58px;
       display:inline-flex;align-items:center;justify-content:center;gap:10px;
       padding:0 12px;border-radius:16px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.04);
+      border:1px solid rgba(43,29,20,.14);
+      background: rgba(255,255,255,.92);
       color:var(--ink);text-decoration:none;font-weight:1000;
-      box-shadow: 0 14px 30px rgba(0,0,0,.30);
+      box-shadow: var(--shadow2);
     }
     .barBtn.primary{
-      background: linear-gradient(135deg, rgba(245,196,81,.22), rgba(45,212,191,.10));
-      border-color: rgba(245,196,81,.32);
+      background: linear-gradient(135deg, rgba(202,164,106,.38), rgba(255,255,255,.92));
+      border-color: rgba(122,74,43,.18);
     }
     .barText{display:flex;flex-direction:column;align-items:flex-start;line-height:1.12;}
-    .barBtn small{display:block;font-weight:900;font-size:11px;color:rgba(183,194,214,.92);margin-top:2px;}
+    .barBtn small{display:block;font-weight:900;font-size:11px;color:rgba(110,91,79,.92);margin-top:2px;}
   </style>
 </head>
 
@@ -518,79 +319,21 @@
         <a class="btn primary" id="miniCall" href="#" aria-label="Ara">📞</a>
       </div>
     </header>
-
-    <!-- ✅ Ana ekrana ekleme yönlendirmesi -->
-    <div class="installBar">
-      <div class="installCard" id="installCard">
-        <div class="installLeft">
-          <div class="installIcon">📲</div>
-          <div class="installText">
-            <b>Ana ekrana ekle</b>
-            <small id="installHint">Tek dokunuşla uygulama gibi kullan.</small>
-          </div>
-        </div>
-        <div class="installBtns">
-          <button class="ibtn" id="installHide">Kapat</button>
-          <button class="ibtn primary" id="installAction">Ekle</button>
-        </div>
-      </div>
-    </div>
   </div>
 
   <div class="wrap">
-    <section class="card daily">
-      <div class="dailyHead">
-        <span class="badge">📌 Günlük Bilgi</span>
-        <span class="today" id="todayLine"></span>
+    <section class="card hero">
+      <div class="heroTop">
+        <span class="badge">☕ Cihangir QR Menü</span>
+        <span class="badge" id="updateBadge">Güncel</span>
       </div>
-
-      <div class="dailyGrid">
-        <div class="ayatBox">
-          <div class="ayatTop">
-            <span class="badge">📖 Günün Ayeti</span>
-            <span class="ayatRef" id="ayatRef"></span>
-          </div>
-
-          <div class="ayatArab" id="ayatArab"></div>
-          <div class="ayatTr" id="ayatTr"></div>
-
-          <div class="vecizeBox">
-            <div class="vecizeTop">
-              <div class="vecizeTitle">🧾 Risale-i Nur Vecize</div>
-              <div class="ayatRef" id="vecizeRef">Kısa</div>
-            </div>
-            <div class="vecizeText" id="vecizeText"></div>
-          </div>
-        </div>
-
-        <div class="prayerBox">
-          <div class="prayerTop">
-            <div>
-              <div class="prayerTitle">🕌 Namaz Vakitleri</div>
-              <div class="loc" id="locText">Kocaeli / Çayırova</div>
-            </div>
-            <span class="status" id="calcBadge">⏳</span>
-          </div>
-
-          <div class="times" id="prayerGrid"></div>
-
-          <div id="nextLine">
-            <b>⏱️ Sonraki vakit</b>
-            <span><span id="nextPrayerName">—</span> • <span id="nextPrayerCountdown">--:--:--</span></span>
-          </div>
-
-          <div class="miniActions">
-            <button class="smallBtn primary" id="btnRefresh">🔄 Yenile</button>
-          </div>
-
-          <div class="hint" id="hint">Vakitler Kocaeli / Çayırova için sabittir.</div>
-        </div>
-      </div>
-    </section>
-
-    <section class="card menuHero" style="margin-top:14px;">
       <h2 id="heroTitle"></h2>
       <p id="heroText"></p>
+      <div class="noteRow">
+        <div class="note">✅ Hızlı servis</div>
+        <div class="note">✅ Temiz & düzenli</div>
+        <div class="note">✅ Uygun fiyat</div>
+      </div>
     </section>
 
     <div class="toolbar">
@@ -636,88 +379,40 @@
   </div>
 
   <script>
+    // =========================
+    // ✅ SADECE BURAYI DÜZENLE
+    // =========================
     const CONFIG = {
       shopName: "Cihangir Çay Ocağı",
-      shopSub: "Sıcak çay, temiz hizmet ☕",
+      shopSub: "Kocaeli / Çayırova",
       phoneLocal: "0507 319 02 78",
       phoneE164: "+905073190278",
       whatsappNumber: "905073190278",
       hours: "Her gün 09:00 – 22:00",
-      address: "Kocaeli / Çayırova ",
-      heroTitle: "QR Menü",
-      heroText: "Fiyatlar günceldir. Aramak veya WhatsApp’tan yazmak için alttaki butonları kullanabilirsiniz."
+      address: "Kocaeli / Çayırova (adres detayını buraya yaz)",
+      heroTitle: "Menü",
+      heroText: "Arama kutusundan hızlıca ürün bulabilir, alttan arayabilir veya WhatsApp’tan yazabilirsiniz."
     };
-
-    // ✅ Sabit Çayırova koordinatı
-    const CAYIROVA = { name:"Kocaeli / Çayırova", lat:40.824, lon:29.372 };
 
     // price:0 => “Fiyat Sor”
     const MENU = [
-      { category: "İÇEÇEKLER", name: "Çay", price: 15, icon: "🍵", desc: "Demli, sıcak", tag: "Sıcak" },
-      { category: "İÇEÇEKLER", name: "Türk Kahvesi", price: 85, icon: "☕", desc: "Köz tadında", tag: "Kahve" },
-      { category: "İÇEÇEKLER", name: "Nescafe", price: 40, icon: "🥤", desc: "3'ü 1 arada / seçenekli", tag: "Kahve" },
-      { category: "İÇEÇEKLER", name: "Oralet (Çeşitleri)", price: 15, icon: "🍊", desc: "Portakal / elma vb.", tag: "Sıcak" },
+      { category: "İÇECEKLER", name: "Çay", price: 15, icon: "🍵", desc: "Demli, sıcak", tag: "Sıcak" },
+      { category: "İÇECEKLER", name: "Türk Kahvesi", price: 90, icon: "☕", desc: "Köz tadında", tag: "Kahve" },
+      { category: "İÇECEKLER", name: "Nescafe", price: 45, icon: "🥤", desc: "3'ü 1 arada / seçenekli", tag: "Kahve" },
+      { category: "İÇECEKLER", name: "Oralet (Çeşitleri)", price: 15, icon: "🍊", desc: "Portakal / elma vb.", tag: "Sıcak" },
 
-      { category: "TOST ÇEŞİTLERİ", name: "Sadece Kaşarlı Tost", price: 0, icon: "🥪", desc: "Bol kaşarlı", tag: "Tost" },
-      { category: "TOST ÇEŞİTLERİ", name: "Sadece Sucuklu Tost", price: 0, icon: "🥪", desc: "Bol sucuklu", tag: "Tost" },
-      { category: "TOST ÇEŞİTLERİ", name: "Kaşarlı + Sucuklu (Karışık)", price: 0, icon: "🥪", desc: "Karışık", tag: "Tost" },
-     // { category: "TOST ÇEŞİTLERİ", name: "Kavurmalı Tost", price: 0, icon: "🥪", desc: "Kavurmalı", tag: "Tost" },
+      { category: "TOST ÇEŞİTLERİ", name: " Kaşarlı Tost", price: 100, icon: "🥪", desc: "Bol kaşarlı", tag: "Tost" },
+      { category: "TOST ÇEŞİTLERİ", name: " Sucuklu Tost", price: 100, icon: "🥪", desc: "Bol sucuklu", tag: "Tost" },
+      { category: "TOST ÇEŞİTLERİ", name: "Kaşarlı + Sucuklu (Karışık)", price: 130, icon: "🥪", desc: "Karışık", tag: "Tost" },
+    //  { category: "TOST ÇEŞİTLERİ", name: "Kavurmalı Tost", price: 0, icon: "🥪", desc: "Kavurmalı", tag: "Tost" },
      // { category: "TOST ÇEŞİTLERİ", name: "Kavurmalı + Kaşarlı", price: 0, icon: "🥪", desc: "Kavurma + kaşar", tag: "Tost" },
-      //{ category: "TOST ÇEŞİTLERİ", name: "Kavurmalı + Sucuklu", price: 0, icon: "🥪", desc: "Kavurma + sucuk", tag: "Tost" },
+     // { category: "TOST ÇEŞİTLERİ", name: "Kavurmalı + Sucuklu", price: 0, icon: "🥪", desc: "Kavurma + sucuk", tag: "Tost" },
 
-     // { category: "Kahvaltılık", name: "Haşlanmış Yumurta", price: 0, icon: "🥚", desc: "Sıcacık", tag: "Yiyecek" },
-      //{ category: "Kahvaltılık", name: "Tavada Yumurta", price: 0, icon: "🍳", desc: "İstersen tereyağlı", tag: "Yiyecek" }
+      { category: "KAHVALTILIK", name: " 1 Haşlanmış Yumurta", price: 20, icon: "🥚", desc: "Sıcacık", tag: "Yiyecek" },
+      { category: "KAHVALTILIK", name: " 1 Tavada Yumurta", price:25 , icon: "🍳", desc: "İstersen tereyağlı", tag: "Yiyecek" }
     ];
-
-    // ✅ Kur’an ayeti: Arapça + kısa anlam (özet)
-    const AYAT_LIST = [
-      { ref:"Mutaffifin 83:1-3", ar:"وَيْلٌ لِلْمُطَفِّفِينَ • الَّذِينَ إِذَا اكْتَالُوا عَلَى النَّاسِ يَسْتَوْفُونَ • وَإِذَا كَالُوهُمْ أَوْ وَزَنُوهُمْ يُخْسِرُونَ", tr:"Ölçü/tartıda hile yapanlara yazıklar olsun; alırken tam, verirken eksik yapanlar…" },
-      { ref:"Rahman 55:9", ar:"وَأَقِيمُوا الْوَزْنَ بِالْقِسْطِ وَلَا تُخْسِرُوا الْمِيزَانَ", tr:"Tartıyı adaletle tutun; ölçüyü eksik yapmayın." },
-      { ref:"En'âm 6:152", ar:"وَأَوْفُوا الْكَيْلَ وَالْمِيزَانَ بِالْقِسْطِ ۖ لَا نُكَلِّفُ نَفْسًا إِلَّا وُسْعَهَا", tr:"Ölçü ve tartıyı adaletle tam yapın; kimseye gücünün üstünde yük yüklenmez." },
-      { ref:"Mâide 5:1", ar:"يَا أَيُّهَا الَّذِينَ آمَنُوا أَوْفُوا بِالْعُقُودِ", tr:"Ey iman edenler! Ahdi/sözleşmeyi yerine getirin." },
-      { ref:"Bakara 2:286", ar:"لَا يُكَلِّفُ اللَّهُ نَفْسًا إِلَّا وُسْعَهَا", tr:"Allah kimseye gücünün yetmediği yük yüklemez." },
-      { ref:"Nahl 16:90", ar:"إِنَّ اللَّهَ يَأْمُرُ بِالْعَدْلِ وَالْإِحْسَانِ", tr:"Allah adaleti ve iyiliği emreder." }
-    ];
-
-    // ✅ Esnafa uygun kısa vecizeler (kısa, afişlik)
-    const RISALE_TRADE = [
-      { ref:"Vecize", text:"Helal dairesi keyfe kâfidir." },
-      { ref:"Vecize", text:"İktisat berekettir; israf bereketsizliktir." },
-      { ref:"Vecize", text:"Doğruluk ve kanaat kazancı bereketlendirir." },
-      { ref:"Vecize", text:"İhlâs, işin ruhudur; bereketin kapısıdır." },
-      { ref:"Vecize", text:"Kul hakkı ticarette en büyük vebaldir." },
-      { ref:"Vecize", text:"Az kazançta kanaat, çok kazançta şükür." }
-    ];
-
-    // Namaz vakitleri (AlAdhan)
-    const ALADHAN_METHOD = 13;
 
     const $ = (id) => document.getElementById(id);
-
-    function todayTR(){
-      return new Date().toLocaleDateString("tr-TR", { weekday:"long", year:"numeric", month:"long", day:"numeric" });
-    }
-    function hashIndex(key, mod){
-      let h = 0;
-      for (let i=0;i<key.length;i++) h = (h*31 + key.charCodeAt(i)) >>> 0;
-      return h % mod;
-    }
-    function pickOfDay(list, salt){
-      const d = new Date();
-      const key = `${salt}-${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
-      return list[hashIndex(key, list.length)];
-    }
-
-    function renderDaily(){
-      const a = pickOfDay(AYAT_LIST, "ayat");
-      $("ayatRef").textContent = a.ref;
-      $("ayatArab").textContent = a.ar;
-      $("ayatTr").textContent = a.tr;
-
-      const v = pickOfDay(RISALE_TRADE, "vecize");
-      $("vecizeRef").textContent = v.ref;
-      $("vecizeText").textContent = v.text;
-    }
 
     function applyConfig(){
       $("shopName").textContent = CONFIG.shopName;
@@ -731,7 +426,6 @@
       $("address").textContent = CONFIG.address;
 
       $("phoneLabel").textContent = CONFIG.phoneLocal;
-      $("todayLine").textContent = todayTR();
 
       const msg = encodeURIComponent("Merhaba, menüden sipariş vermek istiyorum.");
       const wa = `https://wa.me/${CONFIG.whatsappNumber}?text=${msg}`;
@@ -742,20 +436,23 @@
       $("callBtn").href = tel;
       $("miniCall").href = tel;
 
-      $("locText").textContent = CAYIROVA.name;
+      // Güncel rozeti (isteğe bağlı)
+      $("updateBadge").textContent = "Güncel • " + new Date().toLocaleDateString("tr-TR");
     }
 
     function formatPrice(p){
       if (!p || Number(p) === 0) return `<span class="ask">Fiyat Sor</span>`;
       return `<span class="price">${Number(p).toFixed(0)} ₺</span>`;
     }
+
     function catIcon(cat){
-      if (cat === "İçecekler") return "☕";
-      if (cat === "Tostlar") return "🥪";
-      if (cat === "Kahvaltılık") return "🍳";
+      if (cat === "İÇECEKLER") return "☕";
+      if (cat === "TOST ÇEŞİTLERİ") return "🥪";
+      if (cat === "KAHVALTILIK") return "🍳";
       if (cat === "Hepsi") return "📌";
       return "📌";
     }
+
     function getCategories(){
       const set = new Set(MENU.map(x => x.category || "Menü"));
       return ["Hepsi", ...Array.from(set)];
@@ -773,6 +470,7 @@
         return hay.includes(q);
       });
     }
+
     function groupByCategory(items){
       const map = new Map();
       for (const it of items){
@@ -782,6 +480,7 @@
       }
       return map;
     }
+
     function renderTabs(){
       const el = $("tabs");
       el.innerHTML = "";
@@ -793,6 +492,7 @@
         el.appendChild(b);
       });
     }
+
     function renderMenu(){
       renderTabs();
       const items = filterItems();
@@ -824,7 +524,7 @@
               <p>${arr.length} ürün</p>
             </div>
           </div>
-          <div class="chip2">Güncel</div>
+          <div class="chip2">Menü</div>
         `;
         list.appendChild(sec);
 
@@ -852,248 +552,10 @@
       renderMenu();
     });
 
-    // ------- Namaz vakitleri -------
-    function setBadge(text){ $("calcBadge").textContent = text; }
-    function showHint(text){ $("hint").textContent = text; }
-
-    function renderPrayerTimes(times){
-      const want = [
-        { key:"Fajr",    label:"İmsak",  cls:"green" },
-        { key:"Sunrise", label:"Güneş",  cls:"" },
-        { key:"Dhuhr",   label:"Öğle",   cls:"" },
-        { key:"Asr",     label:"İkindi", cls:"" },
-        { key:"Maghrib", label:"Akşam",  cls:"orange" },
-        { key:"Isha",    label:"Yatsı",  cls:"" }
-      ];
-
-      const grid = $("prayerGrid");
-      grid.innerHTML = "";
-
-      want.forEach(w => {
-        const t = (times[w.key] || "--:--").toString().replace(" (TRT)","").trim();
-        const div = document.createElement("div");
-        div.className = "timePill " + (w.cls || "");
-        div.innerHTML = `<b>${w.label}</b><span>${t}</span>`;
-        grid.appendChild(div);
-      });
-    }
-
-    // Sonraki vakte kalan süre
-    let countdownTimer = null;
-
-    function clearCountdown(){
-      if (countdownTimer){
-        clearInterval(countdownTimer);
-        countdownTimer = null;
-      }
-    }
-    function pad2(n){ return String(n).padStart(2,"0"); }
-    function formatHMS(ms){
-      const total = Math.max(0, Math.floor(ms / 1000));
-      const h = Math.floor(total / 3600);
-      const m = Math.floor((total % 3600) / 60);
-      const s = total % 60;
-      return `${pad2(h)}:${pad2(m)}:${pad2(s)}`;
-    }
-    function parseTodayTimeToDate(timeStr){
-      const parts = (timeStr || "").split(":");
-      const h = Number(parts[0] || 0);
-      const m = Number(parts[1] || 0);
-      const d = new Date();
-      d.setHours(h, m, 0, 0);
-      return d;
-    }
-    function setNextPrayerUI(name, targetDate){
-      $("nextPrayerName").textContent = name;
-      clearCountdown();
-
-      const tick = () => {
-        const now = new Date();
-        const diff = targetDate.getTime() - now.getTime();
-        $("nextPrayerCountdown").textContent = formatHMS(diff);
-      };
-
-      tick();
-      countdownTimer = setInterval(tick, 1000);
-    }
-
-    function getNextPrayerFromTimings(timings){
-      const map = [
-        { key:"Fajr",    label:"İmsak" },
-        { key:"Dhuhr",   label:"Öğle" },
-        { key:"Asr",     label:"İkindi" },
-        { key:"Maghrib", label:"Akşam" },
-        { key:"Isha",    label:"Yatsı" }
-      ];
-
-      const now = new Date();
-      for (const it of map){
-        const t = (timings[it.key] || "").toString().replace(" (TRT)","").trim();
-        if (!t) continue;
-        const dt = parseTodayTimeToDate(t);
-        if (dt.getTime() > now.getTime()){
-          return { name: it.label, date: dt };
-        }
-      }
-      return null;
-    }
-
-    function dateDDMMYYYY(d){
-      const dd = pad2(d.getDate());
-      const mm = pad2(d.getMonth()+1);
-      const yy = d.getFullYear();
-      return `${dd}-${mm}-${yy}`;
-    }
-
-    async function fetchTomorrowByCoords(lat, lon){
-      const tomorrow = new Date();
-      tomorrow.setDate(tomorrow.getDate() + 1);
-      const dateStr = dateDDMMYYYY(tomorrow);
-      const url = `https://api.aladhan.com/v1/timings/${dateStr}?latitude=${encodeURIComponent(lat)}&longitude=${encodeURIComponent(lon)}&method=${ALADHAN_METHOD}`;
-      const res = await fetch(url, { cache:"no-store" });
-      if (!res.ok) throw new Error("Yarın vakit alınamadı");
-      const data = await res.json();
-      const t = data && data.data && data.data.timings ? data.data.timings : null;
-      if (!t) throw new Error("Yarın vakit verisi yok");
-      return t;
-    }
-
-    async function updateNextPrayer(timings){
-      const next = getNextPrayerFromTimings(timings);
-      if (next){
-        setNextPrayerUI(next.name, next.date);
-        return;
-      }
-      try{
-        const tmr = await fetchTomorrowByCoords(CAYIROVA.lat, CAYIROVA.lon);
-        const fajr = (tmr.Fajr || "").toString().replace(" (TRT)","").trim();
-        const target = new Date();
-        target.setDate(target.getDate()+1);
-        const parts = fajr.split(":");
-        target.setHours(Number(parts[0]||0), Number(parts[1]||0), 0, 0);
-        setNextPrayerUI("Yarın İmsak", target);
-      }catch(e){
-        $("nextPrayerName").textContent = "Yarın İmsak";
-        $("nextPrayerCountdown").textContent = "--:--:--";
-      }
-    }
-
-    async function fetchByCoords(lat, lon){
-      const url = `https://api.aladhan.com/v1/timings?latitude=${encodeURIComponent(lat)}&longitude=${encodeURIComponent(lon)}&method=${ALADHAN_METHOD}`;
-      const res = await fetch(url, { cache:"no-store" });
-      if (!res.ok) throw new Error("Vakit servisine ulaşılamadı");
-      const data = await res.json();
-      const t = data && data.data && data.data.timings ? data.data.timings : null;
-      if (!t) throw new Error("Vakit verisi bulunamadı");
-      return t;
-    }
-
-    async function loadPrayerFixed(){
-      setBadge("⏳");
-      showHint("Vakitler yükleniyor...");
-      try{
-        const t = await fetchByCoords(CAYIROVA.lat, CAYIROVA.lon);
-        renderPrayerTimes(t);
-        await updateNextPrayer(t);
-        setBadge("✅");
-        showHint("Vakitler güncellendi (Kocaeli / Çayırova).");
-      }catch(e){
-        setBadge("⚠️");
-        showHint("Vakitler alınamadı. İnterneti kontrol edip tekrar deneyin.");
-      }
-    }
-
-    // ✅ Ana ekrana ekleme (Android + iPhone yönlendirme)
-    function isIos(){
-      return /iphone|ipad|ipod/i.test(navigator.userAgent);
-    }
-    function isInStandalone(){
-      return (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || (navigator.standalone === true);
-    }
-    function installWasDismissed(){
-      try{ return localStorage.getItem("install_dismissed") === "1"; }catch(e){ return false; }
-    }
-    function setInstallDismissed(){
-      try{ localStorage.setItem("install_dismissed","1"); }catch(e){}
-    }
-
-    let deferredPrompt = null;
-
-    function showInstallCard(mode){
-      const card = document.getElementById("installCard");
-      const hint = document.getElementById("installHint");
-      const act  = document.getElementById("installAction");
-
-      if (!card || !hint || !act) return;
-
-      if (isInStandalone() || installWasDismissed()) return;
-
-      card.style.display = "flex";
-
-      if (mode === "ios"){
-        hint.textContent = "iPhone: Paylaş ▸ “Ana Ekrana Ekle”";
-        act.textContent = "Nasıl?";
-        act.onclick = () => {
-          alert("iPhone’da Safari’de:\n1) Paylaş (⬆️)\n2) Ana Ekrana Ekle\n3) Ekle");
-        };
-      }else{
-        hint.textContent = "Android: Tek dokunuşla ana ekrana ekle";
-        act.textContent = "Ekle";
-        act.onclick = async () => {
-          if (!deferredPrompt){
-            alert("Ekle seçeneği görünmüyorsa Chrome menüsünden:\n⋮  ▸ Ana ekrana ekle");
-            return;
-          }
-          deferredPrompt.prompt();
-          await deferredPrompt.userChoice;
-          deferredPrompt = null;
-          card.style.display = "none";
-        };
-      }
-
-      document.getElementById("installHide").onclick = () => {
-        card.style.display = "none";
-        setInstallDismissed();
-      };
-    }
-
-    window.addEventListener("beforeinstallprompt", (e) => {
-      // Android Chrome
-      e.preventDefault();
-      deferredPrompt = e;
-      showInstallCard("android");
-    });
-
-    // iOS için banner
-    function maybeShowIosInstall(){
-      if (isIos()) showInstallCard("ios");
-    }
-
     // İlk yükleme
-    document.getElementById("year").textContent = new Date().getFullYear();
+    $("year").textContent = new Date().getFullYear();
     applyConfig();
-    renderDaily();
-    renderTabs();
     renderMenu();
-    loadPrayerFixed();
-    document.getElementById("btnRefresh").addEventListener("click", loadPrayerFixed);
-
-    // Install banner
-    setTimeout(() => {
-      // Android prompt gelmezse iOS/Android manual hint
-      if (!isInStandalone() && !installWasDismissed()){
-        if (isIos()) {
-          maybeShowIosInstall();
-        } else {
-          // Android’da beforeinstallprompt gelmemiş olabilir (manifest yoksa)
-          // yine de kullanıcıya menüden ekleme yolunu gösterelim
-          showInstallCard("android");
-        }
-      }
-    }, 700);
-
-    // (İsteğe bağlı) manifest yoksa Android “Ekle” promptu gelmeyebilir.
-    // Bu yüzden manifest.webmanifest dosyasını da eklemen gerekiyor.
   </script>
 </body>
 </html>
